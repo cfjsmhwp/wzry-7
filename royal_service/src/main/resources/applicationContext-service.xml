@@ -13,4 +13,25 @@
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+
+
+    <!--引入dao层配置文件-->
+    <import resource="classpath:applicationContext-dao.xml"/>
+
+    <!--service层配置开始-->
+
+    <!--组建扫描-->
+    <context:component-scan base-package="com.bbs.service"/>
+
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--注入连接池-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--开启事务注解的支持-->
+    <tx:annotation-driven/>
+
+    <!--service层配置结束-->
+
 </beans>
