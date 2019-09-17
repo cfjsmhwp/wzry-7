@@ -25,7 +25,7 @@ public class ArticleController {
      * @param article
      * @return
      */
-    @RequestMapping("/addArticle")
+    @RequestMapping("/addArticle.do")
     public String addArticle(Article article){
         articleService.addArticle(article);
         return "redirect:/article/getArticleList.do";
@@ -36,7 +36,7 @@ public class ArticleController {
      * @param zoneId
      * @return
      */
-    @RequestMapping("/getArticleList")
+    @RequestMapping("/getArticleList.do")
     public ModelAndView getArticleListByZoneId(Integer zoneId){
         ModelAndView mv = new ModelAndView();
         List<Zone> zoneList = zoneService.getZoneList();
@@ -52,7 +52,7 @@ public class ArticleController {
      * @param articleId
      * @return
      */
-    @RequestMapping("/getArticle")
+    @RequestMapping("/getArticle.do")
     public ModelAndView getArticleById(Integer articleId){
         ModelAndView mv = new ModelAndView();
         Article article = articleService.getArticleById(articleId);

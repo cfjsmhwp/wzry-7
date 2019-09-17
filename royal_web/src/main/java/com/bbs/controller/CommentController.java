@@ -20,12 +20,22 @@ public class CommentController {
      * 查询所有评论
      * @return
      */
-    @RequestMapping("/getCommentList")
+    @RequestMapping("/getCommentList.do")
     public ModelAndView getCommentList(){
         ModelAndView mv = new ModelAndView();
         List<Comment> commentList = commentService.getCommentList();
         mv.addObject("commentList",commentList);
-        mv.setViewName("");
+        mv.setViewName("getArticle");
         return mv;
+    }
+
+    /**
+     * 评论
+     * @return
+     */
+    @RequestMapping("/addComment.do")
+    public String addComment(Comment comment){
+        commentService.addComment(comment);
+        return "redirect:/article/getArticle";
     }
 }

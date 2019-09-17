@@ -20,7 +20,7 @@ public interface ArticleDao {
      * 发帖
      * @param article
      */
-    @Insert("insert into bbs_article_table (articleId,title,content,sendTime,senderName,isTop，replyCount，upvoteCount，browseCount，zoneId，isReport) values (#{aritcle.articleId},#{article.title},#{article.content},#{article.sendTime},#{article.sendTime},#{article.senderName},#{article.isTop},#{article.replyCount},#{article.upvoteCount},#{article.browseCount},#{article.zoneId},#{article.isReport})")
+    @Insert("insert into bbs_article_table (title,content,sendTime,senderName,isTop，replyCount，upvoteCount，browseCount，zoneId，isReport) values (#{article.title},#{article.content},#{article.sendTime},#{article.sendTime},#{article.senderName},#{article.isTop},#{article.replyCount},#{article.upvoteCount},#{article.browseCount},#{article.zoneId},#{article.isReport})")
     void addArticle(Article article);
 
     /**
