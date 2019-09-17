@@ -1,14 +1,12 @@
 package com.bbs.service.impl;
 
 import com.bbs.dao.ArticleDao;
-import com.bbs.domain.Article;
-import com.bbs.service.ArticleService;
-import com.bbs.dao.IArticleDao;
+import com.bbs.dao.UserDao;
+import com.bbs.dao.ZoneDao;
 import com.bbs.domain.Article;
 import com.bbs.domain.Zone;
-import com.bbs.service.IArticleService;
+import com.bbs.service.ArticleService;
 import com.bbs.utils.DateUtils;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +21,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleDao articleDao;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private ZoneDao zoneDao;
+
     /**
      * 查询所有帖子
      * @return
@@ -68,15 +71,6 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.findAll(zoneId);
     }
 
-    @Override
-    public Integer findOnlineUserCount() {
-        return articleDao.findOnlineUserCount();
-    }
-
-    @Override
-    public String[] findOnlineUserName() {
-        return articleDao.findOnlineUserName();
-    }
 
     @Override
     public Integer findArticleCountToday() throws ParseException {
@@ -91,10 +85,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.findAllArticleCount();
     }
 
-    @Override
-    public List<Zone> findAllZone() {
-        return articleDao.findAllZone();
-    }
+
 
     @Override
     public List<Article> findByCondition(String condition) {

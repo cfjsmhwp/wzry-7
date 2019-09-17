@@ -2,21 +2,47 @@ package com.bbs.domain;
 
 import com.bbs.utils.DateUtils;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class Article {
+//帖子表bbs_article_table对应的类
+public class Article implements Serializable {
+
+    //帖子编号
     private Integer articleId;
+    //标题
     private String title;
+    //内容
     private String content;
+    //发送时间
     private Date sendTime;
-    private String sendTimeStr;
+    //发送人编号
     private String senderName;
+    //是否置顶，如果是0，代表不置顶；如果是1，代表置顶；
     private Integer isTop;
+    //评论数
     private Integer replyCount;
+    //点赞数
     private Integer upvoteCount;
+    //浏览数
     private Integer browseCount;
+    //所在交流区
     private Integer zoneId;
+    //举报状态
     private Integer isReport;
+    //一对多的评论集合
+    private List<Comment> commentList;
+
+    private String sendTimeStr;
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
 
     public String getSendTimeStr() {
         String time = DateUtils.date2String(sendTime, "yyyy-MM-dd HH:mm:ss");

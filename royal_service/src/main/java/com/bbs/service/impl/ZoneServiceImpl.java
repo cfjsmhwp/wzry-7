@@ -24,4 +24,9 @@ public class ZoneServiceImpl implements ZoneService {
 
         return zoneDao.getZoneList();
     }
+
+    @Override
+    public List<Zone> findAllZone() {
+        return zoneDao.findAllZone();
+    }
 }

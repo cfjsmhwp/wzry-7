@@ -21,4 +21,11 @@ public interface ZoneDao {
                     many = @Many(select = "com.bbs.dao.ArticleDao.getArticleListByZoneId"))
     })
     List<Zone> getZoneList();
+
+    /**
+     * 查询所有交流区
+     * @return
+     */
+    @Select("select * from bbs_zone_table")
+    List<Zone> findAllZone();
 }
