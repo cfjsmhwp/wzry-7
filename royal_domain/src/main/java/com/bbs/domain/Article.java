@@ -1,43 +1,30 @@
 package com.bbs.domain;
 
-import java.io.Serializable;
+import com.bbs.utils.DateUtils;
+
 import java.util.Date;
-import java.util.List;
 
-//帖子表bbs_article_table对应的类
-public class Article implements Serializable {
-
-    //帖子编号
+public class Article {
     private Integer articleId;
-    //标题
     private String title;
-    //内容
     private String content;
-    //发送时间
     private Date sendTime;
-    //发送人编号
+    private String sendTimeStr;
     private String senderName;
-    //是否置顶，如果是0，代表不置顶；如果是1，代表置顶；
     private Integer isTop;
-    //评论数
     private Integer replyCount;
-    //点赞数
-    private Integer upVoteCount;
-    //浏览数
+    private Integer upvoteCount;
     private Integer browseCount;
-    //所在交流区
     private Integer zoneId;
-    //举报状态
     private Integer isReport;
-    //一对多的评论集合
-    private List<Comment> commentList;
 
-    public List<Comment> getCommentList() {
-        return commentList;
+    public String getSendTimeStr() {
+        String time = DateUtils.date2String(sendTime, "yyyy-MM-dd HH:mm:ss");
+        return time;
     }
 
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
+    public void setSendTimeStr(String sendTimeStr) {
+        this.sendTimeStr = sendTimeStr;
     }
 
     public Integer getArticleId() {
@@ -96,12 +83,12 @@ public class Article implements Serializable {
         this.replyCount = replyCount;
     }
 
-    public Integer getUpVoteCount() {
-        return upVoteCount;
+    public Integer getUpvoteCount() {
+        return upvoteCount;
     }
 
-    public void setUpVoteCount(Integer upVoteCount) {
-        this.upVoteCount = upVoteCount;
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
     }
 
     public Integer getBrowseCount() {
@@ -138,7 +125,7 @@ public class Article implements Serializable {
                 ", senderName='" + senderName + '\'' +
                 ", isTop=" + isTop +
                 ", replyCount=" + replyCount +
-                ", upvoteCount=" + upVoteCount +
+                ", upvoteCount=" + upvoteCount +
                 ", browseCount=" + browseCount +
                 ", zoneId=" + zoneId +
                 ", isReport=" + isReport +

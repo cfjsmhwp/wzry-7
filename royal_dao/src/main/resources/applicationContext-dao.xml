@@ -32,6 +32,19 @@
         <property name="dataSource" ref="dataSource"/>
         <!--给pojo对象起别名【此处注解开发可以省略】-->
         <property name="typeAliasesPackage" value="com.itheima.domain"/>
+        <!-- 传入PageHelper的插件 -->
+        <property name="plugins">
+            <array>
+                <!-- 传入插件的对象 -->
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <props>
+                            <prop key="reasonable">true</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <!--我们对所有dao接口包下的接口进行扫描，使用SqlSeesion对象给其创建代理对象，并且放入到容器中-->
