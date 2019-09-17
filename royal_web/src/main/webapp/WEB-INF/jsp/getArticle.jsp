@@ -36,7 +36,7 @@
                     <h2 class="l">求官方出艾琳英雄活动</h2>
                     <div class="hm-detail-fun l">
 					     <span class="icon-like">
-					         <a href="${pageContext.request.contextPath}/upVote/addUpVote.do"><i></i>${article.upVoteCount}</a>
+					         <a href="${pageContext.request.contextPath}/upvote/addUpvote.do"><i></i>${article.upvoteCount}</a>
 					     </span>
                         <span class="icon-talk">
 						     <i></i>${article.replyCount}
@@ -55,11 +55,11 @@
 
         <!--导航，回首页，帖子标题，排序-->
         <div class="detail-page-box clearfix">
-            <a href="index.do">
+            <a href="${pageContext.request.contextPath}/index.jsp">
                 <i class="hm-ico-home"></i>首页
             </a>
             <span>></span>
-            <a href="${pageContext.request.contextPath}/article/getArticle.do">${article.title}</a>
+            <a href="javascript:void(0)">${article.title}</a>
             <a class="new-to-old r" href="" style="font-size:12px;float: right;">
                 <i></i>从新到旧查看
             </a>
@@ -141,6 +141,7 @@
             <form action="${pageContext.request.contextPath}/comment/addComment.do" method="post">
                 <div class="con con-loged">
                     <div class="con-t">
+                        <input type="hidden" name="commentUserName" value="${c}">
                         <textarea id="content" name="commentContent" placeholder="请在此输入您要回复的信息"></textarea>
                     </div>
                     <div class="con-b">

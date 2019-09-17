@@ -106,7 +106,7 @@
                             <li class="clearfix">
                         </c:if>
                             <div class="hm-index-title"><i class="set-to-top">顶</i>
-                                <a href="${pageContext.request.contextPath}/article.getArticle.do">${article.title}</a>
+                                <a href="${pageContext.request.contextPath}/article/getArticle.do?articleId=${article.articleId}">${article.title}</a>
                             </div>
                             <div class="hm-index-con">${article.content}</div>
                             <div class="hm-index-info l">

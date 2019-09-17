@@ -37,7 +37,7 @@ public interface ArticleDao {
      * @param articleId
      * @return
      */
-    @Select("select * from article where articleId = #{articleId}")
+    @Select("select * from bbs_article_table where articleId = #{articleId}")
     @Results({
             @Result(property = "articleId",column = "articleId"),
             @Result(property = "title",column = "title"),
@@ -46,7 +46,7 @@ public interface ArticleDao {
             @Result(property = "isTop",column = "isTop"),
             @Result(property = "isTop",column = "isTop"),
             @Result(property = "replyCount",column = "replyCount"),
-            @Result(property = "upVoteCount",column = "upVoteCount"),
+            @Result(property = "upvoteCount",column = "upvoteCount"),
             @Result(property = "browseCount",column = "browseCount"),
             @Result(property = "zoneId",column = "zoneId"),
             @Result(property = "isReport",column = "isReport"),
