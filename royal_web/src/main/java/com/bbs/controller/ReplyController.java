@@ -1,5 +1,6 @@
 package com.bbs.controller;
 
+import com.bbs.domain.Reply;
 import com.bbs.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,16 +17,25 @@ public class ReplyController {
     private ReplyService replyService;
 
     /**
-     * 查询所有回复
+     * 根据commentId查询所有回复
      * @return
      */
-    @RequestMapping("/getReplyList")
-    public ModelAndView getReplyList(){
+    @RequestMapping("/getReplyList.do")
+    public ModelAndView getReplyListByCommentId(Integer commentId){
         ModelAndView mv = new ModelAndView();
-        List replyList = replyService.getReplyList();
+        List<Reply> replyList = replyService.getReplyListByCommentId(commentId);
         mv.addObject("replyList",replyList);
-        mv.setViewName("reply-list");
+        mv.setViewName("getArticle");
         return mv;
+    }
+
+    /**
+     *
+     */
+    @RequestMapping("/addReply.do")
+    public String addReply(Reply reply){
+        replyService.addReply(reply);
+        return "redirect:/article/getArticle";
     }
 
 }
