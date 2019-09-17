@@ -10,24 +10,19 @@ public class Upvote {
     //点赞状态，0代表未点赞，1代表已点赞（默认）
     private Integer isUpvote = 0;
 
-    public String getupvoteUserName() {
+    public String getUpvoteUserName() {
         return upvoteUserName;
     }
 
-    public void setupvoteUserName(String upvoteUserName) {
+    public void setUpvoteUserName(String upvoteUserName) {
         this.upvoteUserName = upvoteUserName;
     }
 
-    public Integer getupvoteArticleId() {
-        if (isUpvote == 0){
-            isUpvote = 1;
-        }else if (isUpvote == 1){
-            isUpvote = 0;
-        }
+    public Integer getUpvoteArticleId() {
         return upvoteArticleId;
     }
 
-    public void setupvoteArticleId(Integer upvoteArticleId) {
+    public void setUpvoteArticleId(Integer upvoteArticleId) {
         this.upvoteArticleId = upvoteArticleId;
     }
 
