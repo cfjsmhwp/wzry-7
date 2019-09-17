@@ -4,31 +4,31 @@ package com.bbs.domain;
 public class Upvote {
 
     //点赞人
-    private String UpvoteUserName;
+    private String upvoteUserName;
     //点赞帖子
-    private Integer UpvoteArticleId;
+    private Integer upvoteArticleId;
     //点赞状态，0代表未点赞，1代表已点赞（默认）
     private Integer isUpvote = 0;
 
-    public String getUpvoteUserName() {
-        return UpvoteUserName;
+    public String getupvoteUserName() {
+        return upvoteUserName;
     }
 
-    public void setUpvoteUserName(String UpvoteUserName) {
-        this.UpvoteUserName = UpvoteUserName;
+    public void setupvoteUserName(String upvoteUserName) {
+        this.upvoteUserName = upvoteUserName;
     }
 
-    public Integer getUpvoteArticleId() {
+    public Integer getupvoteArticleId() {
         if (isUpvote == 0){
             isUpvote = 1;
         }else if (isUpvote == 1){
             isUpvote = 0;
         }
-        return UpvoteArticleId;
+        return upvoteArticleId;
     }
 
-    public void setUpvoteArticleId(Integer UpvoteArticleId) {
-        this.UpvoteArticleId = UpvoteArticleId;
+    public void setupvoteArticleId(Integer upvoteArticleId) {
+        this.upvoteArticleId = upvoteArticleId;
     }
 
     public Integer getIsUpvote() {
@@ -42,8 +42,8 @@ public class Upvote {
     @Override
     public String toString() {
         return "Upvote{" +
-                "UpvoteUserName='" + UpvoteUserName + '\'' +
-                ", UpvoteArticleId=" + UpvoteArticleId +
+                "upvoteUserName='" + upvoteUserName + '\'' +
+                ", upvoteArticleId=" + upvoteArticleId +
                 ", isUpvote=" + isUpvote +
                 '}';
     }
