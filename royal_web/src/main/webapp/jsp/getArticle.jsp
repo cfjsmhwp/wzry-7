@@ -36,7 +36,7 @@
                     <h2 class="l">求官方出艾琳英雄活动</h2>
                     <div class="hm-detail-fun l">
 					     <span class="icon-like">
-					         <a href="${pageContext.request.contextPath}/upVote/addUpVote.do"><i></i>${article.upVoteCount}</a>
+					         <a href="${pageContext.request.contextPath}/upVote/addUpvote.do"><i></i>${article.upVoteCount}</a>
 					     </span>
                         <span class="icon-talk">
 						     <i></i>${article.replyCount}

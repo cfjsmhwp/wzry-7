@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UpvoteServiceImpl implements UpvoteService {
 
     @Autowired
-    private UpvoteDao upVoteDao;
+    private UpvoteDao upvoteDao;
 
     /**
      * 点赞
@@ -21,6 +21,6 @@ public class UpvoteServiceImpl implements UpvoteService {
      */
     @Override
     public void addUpvote(Upvote upvote) {
-        upVoteDao.addUpvote(upvote);
+        upvoteDao.addUpvote(upvote);
     }
 }

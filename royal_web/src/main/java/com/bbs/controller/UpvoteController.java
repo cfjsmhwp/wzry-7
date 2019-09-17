@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/upVote")
+@RequestMapping("/upvote")
 public class UpvoteController {
 
     @Autowired
-    private UpvoteService upVoteService;
+    private UpvoteService upvoteService;
 
-    @RequestMapping("/addUpVote.do")
-    public String addUpVote(Upvote upvote){
+    @RequestMapping("/addUpvote.do")
+    public String addUpvote(Upvote upvote){
         ModelAndView mv = new ModelAndView();
-        upVoteService.addUpvote(upvote);
+        upvoteService.addUpvote(upvote);
         return "redirect:/article/getArticle.do";
     }
 }
