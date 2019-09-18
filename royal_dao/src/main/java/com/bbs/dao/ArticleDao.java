@@ -91,4 +91,7 @@ public interface ArticleDao {
      */
     @Select("select * from bbs_article_table where title like #{condition} or content like #{condition}")
     List<Article> findByCondition(String condition);
+
+    @Select("select count(*) from bbs_article_table where senderName = #{senderName}")
+    int getTotalCount(String senderName);
 }

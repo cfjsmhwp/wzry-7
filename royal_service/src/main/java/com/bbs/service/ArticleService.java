@@ -31,4 +31,6 @@ public interface ArticleService {
 
 
     List<Article> findByCondition(String condition);
+
+    int getTotalCount(String senderName);
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -122,6 +123,19 @@ public class ArticleController {
         mv.addObject("article", article);
         mv.setViewName("getArticle");
         return mv;
+    }
+
+    /**
+     * 查询某人发帖数
+     * @param response
+     * @param senderName
+     * @throws Exception
+     */
+    @RequestMapping("/getTotalCount")
+    public void  getTotalCount(HttpServletResponse response, @RequestParam("userName")String senderName)throws Exception{
+        int count = articleService.getTotalCount(senderName);
+        System.out.println(count);
+        response.getWriter().print(count);
     }
 
 }
