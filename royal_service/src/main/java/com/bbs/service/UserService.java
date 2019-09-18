@@ -1,8 +1,10 @@
 package com.bbs.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import javax.xml.stream.events.Comment;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     void addPost(Comment comment);
 
