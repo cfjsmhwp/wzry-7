@@ -52,4 +52,7 @@ public interface ArticleDao {
                     many = @Many(select = "com.bbs.dao.CommentDao.getCommentList"))
     })
     Article getArticleById(Integer articleId);
+
+    @Select("select count(*) from bbs_article_table where senderName = #{senderName}")
+    int getTotalCount(String senderName);
 }

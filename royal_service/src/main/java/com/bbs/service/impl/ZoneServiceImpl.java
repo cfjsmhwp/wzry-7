@@ -24,4 +24,9 @@ public class ZoneServiceImpl implements ZoneService {
 
         return zoneDao.getZoneList();
     }
+
+    @Override
+    public int save(String userName, String zoneName, String reason) {
+        return zoneDao.save(userName,zoneName,reason);
+    }
 }

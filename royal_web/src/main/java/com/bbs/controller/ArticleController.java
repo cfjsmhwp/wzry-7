@@ -7,8 +7,10 @@ import com.bbs.service.ZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -59,6 +61,19 @@ public class ArticleController {
         mv.addObject("article",article);
         mv.setViewName("getArticle");
         return mv;
+    }
+
+    /**
+     * 查询某人发帖数
+     * @param response
+     * @param senderName
+     * @throws Exception
+     */
+    @RequestMapping("/getTotalCount")
+    public void  getTotalCount(HttpServletResponse response, @RequestParam("userName")String senderName)throws Exception{
+        int count = articleService.getTotalCount(senderName);
+        System.out.println(count);
+        response.getWriter().print(count);
     }
 
 }

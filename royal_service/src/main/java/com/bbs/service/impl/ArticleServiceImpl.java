@@ -55,4 +55,10 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getArticleById(Integer articleId) {
         return articleDao.getArticleById(articleId);
     }
+
+    @Override
+    public int getTotalCount(String senderName) {
+        int count = articleDao.getTotalCount(senderName);
+        return count;
+    }
 }

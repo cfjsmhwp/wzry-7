@@ -16,4 +16,6 @@ public interface ArticleService {
 
     //根据articleId查询帖子信息
     Article getArticleById(Integer articleId);
+
+    int getTotalCount(String senderName);
 }
