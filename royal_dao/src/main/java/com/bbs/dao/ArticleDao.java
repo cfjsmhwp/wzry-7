@@ -1,7 +1,6 @@
 package com.bbs.dao;
 
 import com.bbs.domain.Article;
-import com.bbs.domain.Zone;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
