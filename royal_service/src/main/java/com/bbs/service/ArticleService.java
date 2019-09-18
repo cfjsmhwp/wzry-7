@@ -1,7 +1,9 @@
 package com.bbs.service;
 
 import com.bbs.domain.Article;
+import com.bbs.domain.Zone;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface ArticleService {
@@ -16,6 +18,19 @@ public interface ArticleService {
 
     //根据articleId查询帖子信息
     Article getArticleById(Integer articleId);
+
+
+    List<Article> findAll(Integer zoneId);
+
+
+
+    Integer findArticleCountToday() throws ParseException;
+
+    Integer findAllArticleCount();
+
+
+
+    List<Article> findByCondition(String condition);
 
     int getTotalCount(String senderName);
 }

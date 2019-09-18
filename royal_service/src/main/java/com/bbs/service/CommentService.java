@@ -12,4 +12,7 @@ public interface CommentService {
 
     //查询所有评论
     List<Comment> getCommentList();
+
+    //评论
+    void addComment(Comment comment);
 }

@@ -1,14 +1,14 @@
 package com.bbs.domain;
 
-//点赞表bbs_upvote_table对应的类
-public class UpVote {
+//点赞表bbs_Upvote_table对应的类
+public class Upvote {
 
     //点赞人
     private String upvoteUserName;
     //点赞帖子
     private Integer upvoteArticleId;
     //点赞状态，0代表未点赞，1代表已点赞（默认）
-    private Integer isUpvote;
+    private Integer isUpvote = 0;
 
     public String getUpvoteUserName() {
         return upvoteUserName;
@@ -36,7 +36,7 @@ public class UpVote {
 
     @Override
     public String toString() {
-        return "UpVote{" +
+        return "Upvote{" +
                 "upvoteUserName='" + upvoteUserName + '\'' +
                 ", upvoteArticleId=" + upvoteArticleId +
                 ", isUpvote=" + isUpvote +

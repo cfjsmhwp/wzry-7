@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.xml.stream.events.Comment;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -23,6 +24,17 @@ public class UserServiceImpl implements UserService {
     public void addPost(Comment comment) {
         userDao.addPost();
     }
+
+    @Override
+    public Integer findOnlineUserCount() {
+        return userDao.findOnlineUserCount();
+    }
+
+    @Override
+    public String[] findOnlineUserName() {
+        return userDao.findOnlineUserName();
+    }
+
 
     /**
      * 根据用户名，密码验证登录

@@ -26,6 +26,11 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
+    public List<Zone> findAllZone() {
+        return zoneDao.findAllZone();
+    }
+
+    @Override
     public int save(String userName, String zoneName, String reason) {
         return zoneDao.save(userName,zoneName,reason);
     }

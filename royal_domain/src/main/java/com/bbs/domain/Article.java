@@ -1,5 +1,7 @@
 package com.bbs.domain;
 
+import com.bbs.utils.DateUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +24,7 @@ public class Article implements Serializable {
     //评论数
     private Integer replyCount;
     //点赞数
-    private Integer upVoteCount;
+    private Integer upvoteCount;
     //浏览数
     private Integer browseCount;
     //所在交流区
@@ -32,12 +34,23 @@ public class Article implements Serializable {
     //一对多的评论集合
     private List<Comment> commentList;
 
+    private String sendTimeStr;
+
     public List<Comment> getCommentList() {
         return commentList;
     }
 
     public void setCommentList(List<Comment> commentList) {
         this.commentList = commentList;
+    }
+
+    public String getSendTimeStr() {
+        String time = DateUtils.date2String(sendTime, "yyyy-MM-dd HH:mm:ss");
+        return time;
+    }
+
+    public void setSendTimeStr(String sendTimeStr) {
+        this.sendTimeStr = sendTimeStr;
     }
 
     public Integer getArticleId() {
@@ -96,12 +109,12 @@ public class Article implements Serializable {
         this.replyCount = replyCount;
     }
 
-    public Integer getUpVoteCount() {
-        return upVoteCount;
+    public Integer getUpvoteCount() {
+        return upvoteCount;
     }
 
-    public void setUpVoteCount(Integer upVoteCount) {
-        this.upVoteCount = upVoteCount;
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
     }
 
     public Integer getBrowseCount() {
@@ -138,7 +151,7 @@ public class Article implements Serializable {
                 ", senderName='" + senderName + '\'' +
                 ", isTop=" + isTop +
                 ", replyCount=" + replyCount +
-                ", upvoteCount=" + upVoteCount +
+                ", upvoteCount=" + upvoteCount +
                 ", browseCount=" + browseCount +
                 ", zoneId=" + zoneId +
                 ", isReport=" + isReport +

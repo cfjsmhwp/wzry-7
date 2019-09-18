@@ -9,5 +9,7 @@ public interface ZoneService {
     //查询所有空间
     List<Zone> getZoneList();
 
+    List<Zone> findAllZone();
+
     int save(String userName, String zoneName, String reason);
 }

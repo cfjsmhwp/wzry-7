@@ -13,25 +13,46 @@
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!--Dao层配置-->
-    <!--配置数据源-->
-    <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql:///royal_bbs"/>
-        <property name="user" value="root"/>
-        <property name="password" value="root"/>
+
+    <!--dao层配置开始-->
+
+    <context:property-placeholder location="classpath*:db.properties"/>
+
+    <!--配置一个数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <!--创建一个生成sqlSession工厂对象-->
-    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="datasource"/>
+    <!--创建一个生产SqlSeesion对象的工厂对象-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--引入数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--给pojo对象起别名【此处注解开发可以省略】-->
+        <property name="typeAliasesPackage" value="com.itheima.domain"/>
+        <!-- 传入PageHelper的插件 -->
+        <property name="plugins">
+            <array>
+                <!-- 传入插件的对象 -->
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <props>
+                            <prop key="reasonable">true</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
-    <!--对所有dao接口的包下的dao进行扫描，使用sqlsession创建代理对象，并且放入到容器中-->
+    <!--我们对所有dao接口包下的接口进行扫描，使用SqlSeesion对象给其创建代理对象，并且放入到容器中-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.bbs.dao"/>
     </bean>
-    <!--Dao层配置结束-->
+
+    <!--dao层配置结束-->
 
 
 

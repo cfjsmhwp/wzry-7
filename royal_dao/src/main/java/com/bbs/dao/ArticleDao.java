@@ -1,9 +1,11 @@
 package com.bbs.dao;
 
 import com.bbs.domain.Article;
+import com.bbs.domain.Zone;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -20,7 +22,7 @@ public interface ArticleDao {
      * 发帖
      * @param article
      */
-    @Insert("insert into bbs_article_table (articleId,title,content,sendTime,senderName,isTop，replyCount，upvoteCount，browseCount，zoneId，isReport) values (#{aritcle.articleId},#{article.title},#{article.content},#{article.sendTime},#{article.sendTime},#{article.senderName},#{article.isTop},#{article.replyCount},#{article.upvoteCount},#{article.browseCount},#{article.zoneId},#{article.isReport})")
+    @Insert("insert into bbs_article_table (title,content,sendTime,senderName,isTop，replyCount，upvoteCount，browseCount，zoneId，isReport) values (#{article.title},#{article.content},#{article.sendTime},#{article.sendTime},#{article.senderName},#{article.isTop},#{article.replyCount},#{article.upvoteCount},#{article.browseCount},#{article.zoneId},#{article.isReport})")
     void addArticle(Article article);
 
     /**
@@ -35,7 +37,7 @@ public interface ArticleDao {
      * @param articleId
      * @return
      */
-    @Select("select * from article where articleId = #{articleId}")
+    @Select("select * from bbs_article_table where articleId = #{articleId}")
     @Results({
             @Result(property = "articleId",column = "articleId"),
             @Result(property = "title",column = "title"),
@@ -44,7 +46,7 @@ public interface ArticleDao {
             @Result(property = "isTop",column = "isTop"),
             @Result(property = "isTop",column = "isTop"),
             @Result(property = "replyCount",column = "replyCount"),
-            @Result(property = "upVoteCount",column = "upVoteCount"),
+            @Result(property = "upvoteCount",column = "upvoteCount"),
             @Result(property = "browseCount",column = "browseCount"),
             @Result(property = "zoneId",column = "zoneId"),
             @Result(property = "isReport",column = "isReport"),
@@ -52,6 +54,40 @@ public interface ArticleDao {
                     many = @Many(select = "com.bbs.dao.CommentDao.getCommentList"))
     })
     Article getArticleById(Integer articleId);
+
+    /**
+     * 根据交流区查询主页所有列表
+     * @param zoneId
+     * @return
+     */
+    @Select("select * from bbs_article_table where zoneId = #{zoneId} order by isTop desc")
+    List<Article> findAll(Integer zoneId);
+
+
+    /**
+     * 查询今日帖子数
+     * @param date
+     * @return
+     */
+    @Select("select count(articleId) from bbs_article_table where sendTime > #{date}")
+    Integer findArticleCountToday(Date date);
+
+    /**
+     * 查询所有帖子数
+     * @return
+     */
+    @Select("select count(articleId) from bbs_article_table")
+    Integer findAllArticleCount();
+
+
+
+    /**
+     * 根据条件查询
+     * @param condition
+     * @return
+     */
+    @Select("select * from bbs_article_table where title like #{condition} or content like #{condition}")
+    List<Article> findByCondition(String condition);
 
     @Select("select count(*) from bbs_article_table where senderName = #{senderName}")
     int getTotalCount(String senderName);

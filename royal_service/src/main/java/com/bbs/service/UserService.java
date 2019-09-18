@@ -8,6 +8,10 @@ public interface UserService {
 
     void addPost(Comment comment);
 
+    Integer findOnlineUserCount();
+
+    String[] findOnlineUserName();
+
     User findUserByUserNameAndUserPass(String userName, String userPass);
 
     int update(String userName, String email, String picUrl);

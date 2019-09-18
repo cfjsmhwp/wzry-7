@@ -20,7 +20,7 @@ public class ZoneController {
      * 查询所有空间
      * @return
      */
-    @RequestMapping("/getZoneList")
+    @RequestMapping("/getZoneList.do")
     public ModelAndView getZoneList(){
         ModelAndView mv = new ModelAndView();
         List<Zone> zoneList = zoneService.getZoneList();
