@@ -29,8 +29,9 @@
                 login-page="/jsp/login.jsp"
                 login-processing-url="/login.do"
                 default-target-url="/jsp/main.jsp"
+                authentication-success-forward-url="/jsp/main.jsp"
                 authentication-failure-url="/jsp/failer.jsp"
-                             authentication-success-forward-url="/jsp/main.jsp"
+
         />
 
         <!-- 关闭跨域请求 -->

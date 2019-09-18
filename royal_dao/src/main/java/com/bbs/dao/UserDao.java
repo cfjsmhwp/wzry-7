@@ -33,18 +33,6 @@ public interface UserDao {
     @Select("select * from bbs_user_table where  userName = #{userName}")
     UserInfo findByUsername(String userName);
 
-//    @Results({
-//            @Result(id = true, property = "id", column = "id"),
-//            @Result(property = "userName", column = "userName"),
-//            @Result(property = "userPass", column = "userPass"),
-//            @Result(property = "email", column = "email"),
-//            @Result(property = "picUrl", column = "picUrl"),
-//            @Result(property = "role", column = "role"),
-//            @Result(property = "lastLoginTime",column = "lastLoginTime"),
-//            @Result(property = "loginStatus",column = "loginStatus"),
-//            @Result(property = "talkStatus",column = "talkStatus"),
-//            @Result(property = "isupdating",column = "isupdating"),
-//            @Result(property = "updateStatus",column = "updateStatus")
-//    })
-
+    @Select("select * from bbs_user_table")
+    List<UserInfo> findByPage();
 }

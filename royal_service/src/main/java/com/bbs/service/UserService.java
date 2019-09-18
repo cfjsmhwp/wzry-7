@@ -1,8 +1,10 @@
 package com.bbs.service;
 
+import com.bbs.domain.UserInfo;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.xml.stream.events.Comment;
+import java.util.List;
 
 public interface UserService extends UserDetailsService {
 
@@ -11,4 +13,6 @@ public interface UserService extends UserDetailsService {
     Integer findOnlineUserCount();
 
     String[] findOnlineUserName();
+
+    List<UserInfo> findByPage();
 }
