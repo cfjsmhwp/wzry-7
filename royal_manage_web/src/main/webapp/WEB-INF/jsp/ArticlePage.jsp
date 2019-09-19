@@ -92,39 +92,39 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="article">
-                            <tr>
-                                <td width="15%">标题</td>
-                                <td width="30%" class="line-limit-length">
-                                   
-                                </td>
-                                <td width="5%" class="line-limit-length">${article.sendername}</td>
-                                <td width="5%" class="line-limit-length">
-                                   
-                                </td>
-                                <td width="5%">
-                                   
-                                </td>
-                                <td width="5%">
-                                   
-                                </td>
-                                <td width="5%">
-                                   
-                                </td>
-                                <td width="15%">
-                                    
-                                </td>
-                                <td width="15%">
-                                    <a href="/article/deleteArticle.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}" role="button" class="btn btn-primary">屏蔽</a>
-                                    <c:if test="${article.istop==0}">
-                                        <a href="/article/changeStatus.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}" role="button" class="btn btn-danger" >置顶</a>
-                                    </c:if>
-                                    <c:if test="${article.istop==1}">
-                                        <a href="/article/changeStatus.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}" role="button" class="btn btn-info" >取消</a>
-                                    </c:if>
-                                </td>
-                            </tr>
-                        </c:forEach>
+                    <c:forEach items="${pageInfo.list}" var="article">
+                        <tr>
+                            <td width="8%">${article.title}</td>
+                            <td width="25%" class="line-limit-length">${article.content}</td>
+                            <td width="5%" class="line-limit-length">${article.senderName}</td>
+                            <td width="3%" class="line-limit-length">${article.isTopStr}</td>
+                            <td width="3%" class="line-limit-length">${article.replyCount}</td>
+                            <td width="3%" class="line-limit-length">${article.upvoteCount}</td>
+                            <td width="3%" class="line-limit-length">${article.browseCount}</td>
+                            <td width="6%" class="line-limit-length">${article.zoneIdStr}</td>
+                            <td width="10%" class="line-limit-length">
+                                <c:if test="${article.articleStatus==0}">
+                                    <a href="/article/deleteArticle.do?id=${article.articleId}&pn=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&articleStatus=${article.articleStatus}&title="
+                                       role="button" class="btn btn-primary">屏蔽</a>
+                                </c:if>
+                               <c:if test="${article.articleStatus==1}">
+                                    <a href="/article/deleteArticle.do?id=${article.articleId}&pn=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&articleStatus=${article.articleStatus}"
+                                       role="button" class="btn btn-success">显示</a>
+                                </c:if>
+
+                                <c:if test="${article.isTop==0}">
+                                    <a href="/article/changeStatus.do?id=${article.articleId}&pn=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}"
+                                       role="button" class="btn btn-danger">置顶</a>
+                                </c:if>
+                                <c:if test="${article.isTop==1}">
+                                    <a href="/article/changeStatus.do?id=${article.articleId}&pn=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}"
+                                       role="button" class="btn btn-info">取消</a>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
+
                     </tbody>
                 </table>
 
@@ -183,6 +183,11 @@
 </div><!-- /.hrms_dept_container -->
 
 <%--<%@ include file="ArticleAdd.jsp"%>--%>
-<%--<%@ include file="ArticleUpdate.jsp"%>--%>
+<%@ include file="ArticleUpdate.jsp"%>
 </body>
+<script>
+    function searchArticle(page) {
+        location.href="${pageContext.request.contextPath}/article/findByPage.do?page="+page;
+    }
+</script>
 </html>

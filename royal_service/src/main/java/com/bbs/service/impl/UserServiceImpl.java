@@ -22,12 +22,8 @@ import java.util.Date;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-
     @Autowired
     private UserDao userDao;
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
 
     /**
      * 发帖，添加帖子
@@ -62,6 +58,8 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //处理自己的用户对象封装成UserDetails
+        //  UserInfo111 user=new UserInfo111(userInfo.getUsername(),"{noop}"+userInfo.getPassword(),getAuthority(userInfo.getRoles()));
         User user = new User(userInfo.getUserName(), userInfo.getUserPass(), true, true, true, true, getAuthority(userInfo));
         return user;
     }
@@ -76,17 +74,12 @@ public class UserServiceImpl implements UserService {
         return list;
     }
     @Override
-    public void register(UserInfo userInfo) throws Exception {
-//       userInfo.setUserPass(bCryptPasswordEncoder.encode(userInfo.getUserPass()));
-        userDao.register(userInfo);
+    public void register(UserInfo user) throws Exception {
+        userDao.register(user);
     }
 
     @Override
     public UserInfo login(String userName, String userPass) throws Exception {
-//        UserInfo userInfo = new UserInfo();
-//        userInfo.setUserName(userName);
-//        userInfo.setUserName(userPass);
-//        userInfo.setUserPass(bCryptPasswordEncoder.encode(userInfo.getUserPass()));
         return userDao.login(userName,userPass);
     }
 

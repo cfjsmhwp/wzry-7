@@ -21,7 +21,10 @@ public interface ArticleDao {
      * 发帖
      * @param article
      */
-    @Insert("insert into bbs_article_table (title,content,sendTime,senderName,isTop，replyCount，upvoteCount，browseCount，zoneId，isReport) values (#{article.title},#{article.content},#{article.sendTime},#{article.sendTime},#{article.senderName},#{article.isTop},#{article.replyCount},#{article.upvoteCount},#{article.browseCount},#{article.zoneId},#{article.isReport})")
+    @Insert("insert into bbs_article_table (title,content,sendTime,senderName,isTop," +
+            "replyCount,upvoteCount,browseCount,zoneId,isReport) values " +
+            "(#{title},#{content},#{sendTime},#{senderName},#{isTop}," +
+            "#{replyCount},#{upvoteCount},#{browseCount},#{zoneId},#{isReport})")
     void addArticle(Article article);
 
     /**
@@ -87,6 +90,45 @@ public interface ArticleDao {
      */
     @Select("select * from bbs_article_table where title like #{condition} or content like #{condition}")
     List<Article> findByCondition(String condition);
+
+    /**
+     * 置顶 取消置顶
+     * @param articleId
+     * @param senderName
+     */
+    @Update(" update bbs_article_table set isTop=1 where articleId=#{articleId} and senderName=#{senderName}")
+    void  changeStatus(@Param("articleId") String articleId, @Param("senderName") String senderName);
+    @Update(" update bbs_article_table set isTop=0 where articleId=#{articleId} and senderName=#{senderName}")
+    void cancelStatus(@Param("articleId") String articleId, @Param("senderName") String senderName);
+
+    /**
+     * 显示屏蔽
+     * @param articleId
+     * @param senderName
+     */
+    @Update(" update bbs_article_table set articleStatus=1 where articleId=#{articleId} and senderName=#{senderName}")
+    void deleteArticle(@Param("articleId") String articleId, @Param("senderName") String senderName);
+    @Update(" update bbs_article_table set articleStatus=0 where articleId=#{articleId} and senderName=#{senderName}")
+    void showArticle(@Param("articleId") String articleId, @Param("senderName") String senderName);
+
+    /**
+     * 模糊查询
+     * @param title
+     * @param senderName
+     * @return
+     */
+    @Select("<script>\n" +
+            "select * from bbs_article_table\n" +
+            "<where>\n" +
+            "    <if test=\"title != null and title !=''\">\n" +
+            "        and title like #{title}\n" +
+            "    </if>\n" +
+            "    <if test=\"senderName != null and senderName !=''\">\n" +
+            "        and senderName like #{senderName}\n" +
+            "    </if>\n" +
+            "</where>\n" +
+            "</script>")
+    List<Article> fuzzyQuery(@Param("title") String title,@Param("senderName") String senderName);
 
     /**
      * 查询某人发帖总数

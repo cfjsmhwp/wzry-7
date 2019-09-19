@@ -129,7 +129,7 @@
 </div>
 
 <!-- 发帖弹出框 -->
-<form action="" method="post">
+<form action="${pageContext.request.contextPath}/article/addArticle.do" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">
@@ -138,6 +138,8 @@
             </div>
             <div class="win_bd">
                 <div class="win_bd_t">
+                    <input type="hidden" name="zoneId" value="${zoneId}">
+                    <input type="hidden" name="senderName" value="${loginUser.userName}">
                     <input type="text" id="title" name="title" placeholder="帖子标题"/>
                 </div>
                 <div class="win_bd_b">

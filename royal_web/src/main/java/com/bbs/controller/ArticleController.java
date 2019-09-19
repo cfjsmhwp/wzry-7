@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -54,6 +55,7 @@ public class ArticleController {
         //查询所有交流区
         List<Zone> zoneList = zoneService.findAllZone();
         mv.addObject("zoneList", zoneList);
+        mv.addObject("zoneId", zoneId);
         mv.addObject("allArticleCount", allArticleCount);
         mv.addObject("onlineUserCount", onlineUserCount);
         mv.addObject("onlineUserNames", onlineUserNames);
@@ -65,13 +67,29 @@ public class ArticleController {
 
     /**
      * 发帖
-     * @param article
+     *
+     * @param
      * @return
      */
     @RequestMapping("/addArticle.do")
-    public String addArticle(Article article){
+    public String addArticle(String content, String zoneId, String senderName,String title) {
+        Article article = new Article();
+        try {
+            article.setTitle(title);
+            article.setContent(content);
+            article.setIsTop(0);
+            article.setSenderName(senderName);
+            article.setBrowseCount(0);
+            article.setReplyCount(0);
+            article.setSendTime(new Date());
+            article.setUpvoteCount(0);
+            article.setIsReport(0);
+            article.setZoneId(Integer.parseInt(zoneId));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
         articleService.addArticle(article);
-        return "redirect:/article/getArticleList.do";
+        return "redirect:/article/findAll.do?zoneId="+ Integer.parseInt(zoneId);
     }
 
 

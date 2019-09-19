@@ -18,6 +18,16 @@ public class Report implements Serializable {
     private Integer reportStatus;
     //文章ID
     private Integer articleId;
+    //显示状态(0代表屏蔽，1代表显示)
+    private Integer articleStatus;
+
+    public Integer getArticleStatus() {
+        return articleStatus;
+    }
+
+    public void setArticleStatus(Integer articleStatus) {
+        this.articleStatus = articleStatus;
+    }
 
     public Integer getReportId() {
         return reportId;
