@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.stream.events.Comment;
+import java.util.Date;
 
 @Service
 @Transactional
@@ -35,17 +36,24 @@ public class UserServiceImpl implements UserService {
         return userDao.findOnlineUserName();
     }
 
+    @Override
+    public void register(User user) throws Exception {
+        userDao.register(user);
+    }
 
-    /**
-     * 根据用户名，密码验证登录
-     * @param userName
-     * @param userPass
-     * @return
-     */
+    @Override
+    public User login(String userName, String userPass) throws Exception {
+        return userDao.login(userName,userPass);
+    }
 
-    public User findUserByUserNameAndUserPass(String userName, String userPass) {
-        User user = userDao.findUserByUserNameAndUserPass(userName,userPass);
-        return user;
+    @Override
+    public User findByUserName(String userName) throws Exception {
+        return userDao.findByUserName(userName);
+    }
+
+    @Override
+    public void updateLoginTime(String userName, Date date) throws Exception {
+        userDao.updateLoginTime(userName,date);
     }
 
     @Override
@@ -54,14 +62,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int applyUpgrade(String userName) {
-        int flag = userDao.applyUpgrade(userName);
-        return flag;
+    public void updatePwd(String userName, String oldPassword, String newPassword) {
+        userDao.updatePwd(userName,oldPassword,newPassword);
     }
 
     @Override
-    public void updatePwd(String userName, String oldPassword, String newPassword) {
-        userDao.updatePwd(userName,oldPassword,newPassword);
+    public int applyUpgrade(String userName) {
+        int flag = userDao.applyUpgrade(userName);
+        return flag;
     }
 
 }

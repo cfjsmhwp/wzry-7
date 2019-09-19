@@ -37,7 +37,7 @@ public class ZoneController {
      * @param reason
      * @throws Exception
      */
-    @RequestMapping("/apply")
+    @RequestMapping("/apply.do")
     public void ZoneApply(HttpServletResponse response, String userName, String zoneName, String reason)throws Exception{
         int flag = zoneService.save(userName,zoneName,reason);
         if (flag>0){

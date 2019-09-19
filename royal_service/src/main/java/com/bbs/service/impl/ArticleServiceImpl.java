@@ -93,10 +93,10 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.findByCondition("%"+condition+"%");
     }
 
-
     @Override
     public int getTotalCount(String senderName) {
         int count = articleDao.getTotalCount(senderName);
         return count;
     }
+
 }

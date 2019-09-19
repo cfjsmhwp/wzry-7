@@ -4,43 +4,84 @@ import com.bbs.domain.User;
 import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.stream.events.Comment;
 import java.io.File;
-import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
     /**
-     * 用户登录
-     * @param request
-     * @param response
+     * 登录校验 以及 用户登录
      * @param userName
      * @param userPass
+     * @return
      * @throws Exception
      */
-    @RequestMapping("/login")
-    public void Login(HttpServletRequest request,HttpServletResponse response,String userName,String userPass)throws Exception{
+    @RequestMapping("login.do")
+    @ResponseBody
+    public String login( HttpSession session, String userName,String userPass) throws Exception {
+        User user = userService.login(userName,userPass);
+        if (user==null){
+            return "false";
+        }else{
+            userService.updateLoginTime(userName,new Date());
+            session.setAttribute("loginUser",user);
+            return "true";
+        }
+    }
 
-            User user = userService.findUserByUserNameAndUserPass(userName,userPass);
-            if (user!=null){
-                request.getSession().setAttribute("user",user);
-                response.setContentType("text/html; charset=utf-8");
-                response.getWriter().print("true");
-                response.sendRedirect(request.getContextPath()+"/jsp/index.jsp");
-            }
+    /**
+     * 用户注销
+     * @return
+     */
+    @RequestMapping("/logout.do")
+    public String logout( HttpSession session){
+        session.invalidate();
+        return "redirect:/article/findAll.do";
+    }
 
+    /*
+    注册校验：发送ajax请求判断用户是否已经存在
+     */
+    @RequestMapping("findByUsername.do")
+//    @ResponseBody
+    public @ResponseBody String findByUsername(String userName) throws Exception {
+        User findUser = userService.findByUserName(userName);
+        if (findUser==null){
+            return "true";
+        }else {
+            return "false";
+        }
+    }
+
+    /*
+    用户注册
+     */
+    @RequestMapping("/register.do")
+    public ModelAndView register(User user, HttpSession session) throws Exception {
+        Date date = new Date();
+        user.setLastLoginTime(date);
+        user.setRole(1);
+        userService.register(user);
+        session.setAttribute("loginUser",user);
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("success");
+        return mv;
     }
 
     /**
@@ -55,14 +96,15 @@ public class UserController {
     }
 
     /**
-     * 注销（退出登录）
-     * @param request
-     * @param response
+     * 跳转至修改个人信息主页
+     * @param method
+     * @return
      */
-    @RequestMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response){
-
-
+    @RequestMapping("/getUser.do")
+    public ModelAndView getUser(String method){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(method);
+        return mv;
     }
 
     /**
@@ -74,7 +116,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/updateUserInfo")
+    @RequestMapping("/updateUserInfo.do")
     public @ResponseBody String update(HttpServletRequest request, MultipartFile upload, String userName, String email) throws Exception {
         // 使用fileupload组件完成文件上传
         // 上传的位置
@@ -100,29 +142,27 @@ public class UserController {
     }
 
     /**
-     * 普通用户申请高级用户
-     * @param userName
-     * @param response
-     * @throws Exception
-     */
-    @RequestMapping("/applyUpgrade")
-    public void applyUpdate(String userName, HttpServletResponse response)throws Exception{
-        int flag = userService.applyUpgrade(userName);
-        response.getWriter().print(flag);
-    }
-
-
-    /**
      * 修改密码
      * @param userName
      * @param oldPassword
      * @param newPassword
      * @return
      */
-    @RequestMapping("/updatePwd")
+    @RequestMapping("/updatePwd.do")
     public @ResponseBody String updatePwd(String userName,String oldPassword,String newPassword){
         userService.updatePwd(userName,oldPassword,newPassword);
         return "true";
     }
 
+    /**
+     * 普通用户申请高级用户
+     * @param userName
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping("/applyUpgrade.do")
+    public void applyUpdate(String userName, HttpServletResponse response)throws Exception{
+        int flag = userService.applyUpgrade(userName);
+        response.getWriter().print(flag);
+    }
 }

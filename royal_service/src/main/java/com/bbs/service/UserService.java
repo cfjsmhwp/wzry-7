@@ -3,6 +3,7 @@ package com.bbs.service;
 import com.bbs.domain.User;
 
 import javax.xml.stream.events.Comment;
+import java.util.Date;
 
 public interface UserService {
 
@@ -12,11 +13,17 @@ public interface UserService {
 
     String[] findOnlineUserName();
 
-    User findUserByUserNameAndUserPass(String userName, String userPass);
+    void register(User user) throws Exception;
+
+    User login(String userName, String userPass) throws Exception;
+
+    User findByUserName(String userName) throws Exception;
+
+    void updateLoginTime(String userName, Date date) throws  Exception;
 
     int update(String userName, String email, String picUrl);
 
-    int applyUpgrade(String userName);
-
     void updatePwd(String userName, String oldPassword, String newPassword);
+
+    int applyUpgrade(String userName);
 }

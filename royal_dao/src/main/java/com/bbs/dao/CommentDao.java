@@ -18,7 +18,7 @@ public interface CommentDao {
             @Result(property = "commentUserName",column = "commentUserName"),
             @Result(property = "commentStatus",column = "commentStatus"),
             @Result(property = "articleId",column = "articleId"),
-            @Result(property = "replyList",column = "commentId",javaType = java.util.List.class,
+            @Result(property = "replyList",column = "commentId",javaType = List.class,
                     many = @Many(select = "com.bbs.dao.ReplyDao.getRelyListByCommentId"))
     })
     List<Comment> getCommentList();

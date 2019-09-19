@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,8 +28,8 @@ public class ArticleController {
 
     @RequestMapping("/findAll.do")
     public ModelAndView getArticleList(
-            @RequestParam(name = "condition", required = false, defaultValue = "") String condition,
-            @RequestParam(name = "zoneId", required = false) Integer zoneId) throws ParseException {
+                                       @RequestParam(name = "condition",required = false,defaultValue = "") String condition,
+                                       @RequestParam(name = "zoneId",required = false)Integer zoneId) throws ParseException {
         ModelAndView mv = new ModelAndView();
         if (zoneId == null) {
             zoneId = 1;
@@ -54,7 +53,6 @@ public class ArticleController {
         Integer allArticleCount = articleService.findAllArticleCount();
         //查询所有交流区
         List<Zone> zoneList = zoneService.findAllZone();
-        mv.addObject("zoneId", zoneId);
         mv.addObject("zoneList", zoneList);
         mv.addObject("allArticleCount", allArticleCount);
         mv.addObject("onlineUserCount", onlineUserCount);
@@ -67,60 +65,42 @@ public class ArticleController {
 
     /**
      * 发帖
-     *
-     * @param
+     * @param article
      * @return
      */
     @RequestMapping("/addArticle.do")
-    public String addArticle(String content, String zoneId, String senderName,String title) {
-        Article article = new Article();
-        try {
-            article.setTitle(title);
-            article.setContent(content);
-            article.setIsTop(0);
-            article.setSenderName("老李");
-            article.setBrowseCount(0);
-            article.setReplyCount(0);
-            article.setSendTime(new Date());
-            article.setUpvoteCount(0);
-            article.setIsReport(0);
-            article.setZoneId(Integer.parseInt(zoneId));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+    public String addArticle(Article article){
         articleService.addArticle(article);
-        return "redirect:/article/findAll.do?zoneId="+ Integer.parseInt(zoneId);
+        return "redirect:/article/getArticleList.do";
     }
 
 
     /**
      * 根据zoneId查询帖子集合
-     *
      * @param zoneId
      * @return
      */
     @RequestMapping("/getArticleList.do")
-    public ModelAndView getArticleListByZoneId(Integer zoneId) {
+    public ModelAndView getArticleListByZoneId(Integer zoneId){
         ModelAndView mv = new ModelAndView();
         List<Zone> zoneList = zoneService.getZoneList();
         List<Article> articleList = articleService.getArticleListByZoneId(zoneId);
-        mv.addObject("zoneList", zoneList);
-        mv.addObject("articleList", articleList);
+        mv.addObject("zoneList",zoneList);
+        mv.addObject("articleList",articleList);
         mv.setViewName("article-list");
         return mv;
     }
 
     /**
      * 根据articleId查询帖子信息
-     *
      * @param articleId
      * @return
      */
     @RequestMapping("/getArticle.do")
-    public ModelAndView getArticleById(Integer articleId) {
+    public ModelAndView getArticleById(Integer articleId){
         ModelAndView mv = new ModelAndView();
         Article article = articleService.getArticleById(articleId);
-        mv.addObject("article", article);
+        mv.addObject("article",article);
         mv.setViewName("getArticle");
         return mv;
     }
@@ -131,11 +111,12 @@ public class ArticleController {
      * @param senderName
      * @throws Exception
      */
-    @RequestMapping("/getTotalCount")
+    @RequestMapping("/getTotalCount.do")
     public void  getTotalCount(HttpServletResponse response, @RequestParam("userName")String senderName)throws Exception{
         int count = articleService.getTotalCount(senderName);
         System.out.println(count);
         response.getWriter().print(count);
     }
+
 
 }
