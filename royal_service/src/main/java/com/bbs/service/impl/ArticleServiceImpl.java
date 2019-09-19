@@ -142,4 +142,10 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.fuzzyQuery(title,senderName);
     }
 
+    @Override
+    public int getTotalCount(String senderName) {
+        int count = articleDao.getTotalCount(senderName);
+        return count;
+    }
+
 }

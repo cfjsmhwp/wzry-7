@@ -32,6 +32,8 @@ public interface ArticleService {
 
 
     List<Article> findByCondition(String condition);
+
+    int getTotalCount(String senderName);
     //置顶条件
     List<Article> changeStatus(String articleId, String senderName,int pn,int isTop);
     //屏蔽

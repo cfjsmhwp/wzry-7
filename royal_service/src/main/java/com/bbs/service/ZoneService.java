@@ -10,4 +10,6 @@ public interface ZoneService {
     List<Zone> getZoneList();
 
     List<Zone> findAllZone();
+
+    int save(String userName, String zoneName, String reason);
 }
