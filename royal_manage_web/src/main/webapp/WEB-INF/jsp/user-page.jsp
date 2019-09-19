@@ -149,8 +149,8 @@
                             <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a></li>
 
 
-                            <c:forEach begin="1" end="${pageInfo.pages}" var="page_num">
-                                <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pageNum}&size=${pageInfo.pageSize}">${pageInfo.pageNum}</a></li>
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
 
                             </c:forEach>
 
