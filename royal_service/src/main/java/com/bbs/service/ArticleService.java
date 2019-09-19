@@ -11,6 +11,7 @@ public interface ArticleService {
     //查询所有帖子
     List<Article> getArticleList(int page);
     List<Article> getArticleList();
+
     //发帖
     void addArticle(Article article);
 
@@ -41,4 +42,5 @@ public interface ArticleService {
 
     //模糊查询
     List<Article> fuzzyQuery(String title, String senderName, int pn);
+
 }

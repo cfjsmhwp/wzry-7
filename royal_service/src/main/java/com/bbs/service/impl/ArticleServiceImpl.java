@@ -4,7 +4,6 @@ import com.bbs.dao.ArticleDao;
 import com.bbs.dao.UserDao;
 import com.bbs.dao.ZoneDao;
 import com.bbs.domain.Article;
-import com.bbs.domain.Zone;
 import com.bbs.service.ArticleService;
 import com.bbs.utils.DateUtils;
 import com.github.pagehelper.PageHelper;

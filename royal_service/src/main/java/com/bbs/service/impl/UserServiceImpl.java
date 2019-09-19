@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
         return userDao.findByPage();
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserInfo userInfo = null;
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
         }
         //处理自己的用户对象封装成UserDetails
         //  UserInfo111 user=new UserInfo111(userInfo.getUsername(),"{noop}"+userInfo.getPassword(),getAuthority(userInfo.getRoles()));
-        User user = new User(userInfo.getUserName(), userInfo.getUserPass(), userInfo.getLoginStatus()==0?false:true, true, true, true, getAuthority(userInfo));
+        User user = new User(userInfo.getUserName(), userInfo.getUserPass(), true, true, true, true, getAuthority(userInfo));
         return user;
     }
 
