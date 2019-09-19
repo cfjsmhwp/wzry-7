@@ -89,7 +89,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${userList}" var="user">
+                        <c:forEach items="${pageInfo.list}" var="user">
 
                             <tr>
                                 <td width="15%">${user.userName}</td>
@@ -120,10 +120,23 @@
 
             </div><!-- /.panel panel-success -->
             <!--显示分页信息-->
+            <%--<div class="box-footer">--%>
+                <%--<div class="pull-left">--%>
+                    <%--<div class="form-group form-inline">--%>
+                        <%--总共2 页，共14 条数据。 每页--%>
+                        <%--<select class="form-control" id="changePageSize" onchange="changePageSize()">--%>
+                            <%--<option>1</option>--%>
+                            <%--<option>2</option>--%>
+                            <%--<option>3</option>--%>
+                            <%--<option>4</option>--%>
+                            <%--<option>5</option>--%>
+                        <%--</select> 条--%>
+                    <%--</div>--%>
+                <%--</div>--%>
             <div class="row">
                 <!--文字信息-->
                 <div class="col-md-6">
-                    当前第 ${articleMsgs.pageNum} 页.总共 ${articleMsgs.pages} 页.一共 ${articleMsgs.total} 条记录
+                    当前第 ${pageInfo.pageNum} 页.总共 ${pageInfo.pages} 页.一共 ${pageInfo.total} 条记录
                 </div>
 
                 <!--点击分页-->
@@ -131,40 +144,76 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="#" onclick="searchArticle(1)">首页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=1&size=${pageInfo.pageSize}" aria-label="Previous">首页</a></li>
                             <!--上一页-->
-                            <li>
-                                <c:if test="${articleMsgs.hasPreviousPage}">
-                                        <a href="#" onclick="searchArticle('${articleMsgs.pageNum-1}')" aria-label="Previous">
-                                            <span aria-hidden="true">«</span>
-                                        </a>
-                                </c:if>
-                            </li>
-                            <li class="active"><a href="#">${page_num}11111</a></li>
-                            <c:forEach items="${articleMsgs.navigatepageNums}" var="page_num">
-                                <c:if test="${page_num == articleMsgs.pageNum}">
-                                    <li class="active"><a href="#">${page_num}11111</a></li>
-                                </c:if>
-                                <c:if test="${page_num != articleMsgs.pageNum}">
-                                    <li><a href="#" onclick="searchArticle('${page_num}')">${page_num}22222</a></li>
-                                </c:if>
+                            <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a></li>
+
+
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="page_num">
+                                <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pageNum}&size=${pageInfo.pageSize}">${pageInfo.pageNum}</a></li>
+
                             </c:forEach>
 
                             <!--下一页-->
-                            <li>
-                                <c:if test="${articleMsgs.hasNextPage}">
-                                    <a href="javascript:void(0)" onclick="searchArticle('${articleMsgs.pageNum+1}')"
-                                       aria-label="Next">
-                                        <span aria-hidden="true">»</span>
-                                    </a>
-                                </c:if>
-                            </li>
-                            <li><a href="javascript:void(0)" onclick="searchArticle('${articleMsgs.pages}')">尾页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}" >下一页</a></li>
+
+                            <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}" aria-label="Previous" >尾页</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
         </div><!-- /.dept_info -->
+
+        <script>
+            function changePageSize() {
+                //获取下拉框的值
+                var pageSize = $("#changePageSize").val();
+
+                //向服务器发送请求，改变没页显示条数
+                location.href = "${pageContext.request.contextPath}/user/findAll.do?page=1&size="
+                    + pageSize;
+            }
+            $(document).ready(function() {
+                // 选择框
+                $(".select2").select2();
+
+                // WYSIHTML5编辑器
+                $(".textarea").wysihtml5({
+                    locale : 'zh-CN'
+                });
+            });
+
+            // 设置激活菜单
+            function setSidebarActive(tagUri) {
+                var liObj = $("#" + tagUri);
+                if (liObj.length > 0) {
+                    liObj.parent().parent().addClass("active");
+                    liObj.addClass("active");
+                }
+            }
+
+            $(document).ready(function() {
+
+                // 激活导航位置
+                setSidebarActive("admin-datalist");
+
+                // 列表按钮
+                $("#dataList td input[type='checkbox']").iCheck({
+                    checkboxClass : 'icheckbox_square-blue',
+                    increaseArea : '20%'
+                });
+                // 全选操作
+                $("#selall").click(function() {
+                    var clicks = $(this).is(':checked');
+                    if (!clicks) {
+                        $("#dataList td input[type='checkbox']").iCheck("uncheck");
+                    } else {
+                        $("#dataList td input[type='checkbox']").iCheck("check");
+                    }
+                    $(this).data("clicks", !clicks);
+                });
+            });
+        </script>
         <!-- 尾部-->
         <%@ include file="../../jsp/commom/foot.jsp"%>
     </div><!-- /.hrms_dept_body -->

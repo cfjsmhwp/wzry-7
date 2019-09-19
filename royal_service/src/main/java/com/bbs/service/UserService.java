@@ -14,5 +14,5 @@ public interface UserService extends UserDetailsService {
 
     String[] findOnlineUserName();
 
-    List<UserInfo> findByPage();
+    List<UserInfo> findByPage(int page,int size);
 }

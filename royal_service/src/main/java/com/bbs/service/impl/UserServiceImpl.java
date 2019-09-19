@@ -3,6 +3,7 @@ package com.bbs.service.impl;
 import com.bbs.dao.UserDao;
 import com.bbs.domain.UserInfo;
 import com.bbs.service.UserService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -42,7 +43,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserInfo> findByPage() {
+    public List<UserInfo> findByPage(int page, int size) {
+        PageHelper.startPage(page,size);
         return userDao.findByPage();
     }
 
