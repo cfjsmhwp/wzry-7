@@ -31,15 +31,16 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("login.do")
+    @RequestMapping("/login.do")
     @ResponseBody
     public String login( HttpSession session, String userName,String userPass) throws Exception {
-
         UserInfo user = userService.login(userName,userPass);
         if (user==null){
             return "false";
         }else{
             userService.updateLoginTime(userName,new Date());
+
+            //测试能不能拿到这个LoginStatus，如果拿到就可以用
             user.setLoginStatus(1);
             session.setAttribute("loginUser",user);
             return "true";
@@ -51,11 +52,11 @@ public class UserController {
      * @return
      */
     @RequestMapping("/logout.do")
-    public String logout( HttpSession session){
-//        UserInfo user = (UserInfo) session.getAttribute("loginUser");
-//        user.setLoginStatus(0);
-        session.invalidate();
+    public String logout( HttpSession session,Integer userId){
 
+        //注销时直接通过，单击传过来的ID改变LoginStatus的值
+//        userService.updateLoginStatus(userId);
+        session.invalidate();
         return "redirect:/article/findAll.do";
     }
 

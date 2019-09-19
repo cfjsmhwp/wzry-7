@@ -34,4 +34,9 @@ public class ZoneServiceImpl implements ZoneService {
     public int save(String userName, String zoneName, String reason) {
         return zoneDao.save(userName,zoneName,reason);
     }
+
+    @Override
+    public void addZone(String zoneName) throws Exception {
+        zoneDao.addZone(zoneName,2);
+    }
 }

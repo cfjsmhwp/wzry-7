@@ -8,7 +8,8 @@
             <%--location.href="${pageContext.request.contextPath}/article/findAll.do";--%>
         <%--})--%>
     <%--</script>--%>
-    <a href="jsp/login.jsp">aaaaaaaaaa</a>
+    <%--<a href="jsp/main.jsp">后台审核功能开发</a>--%>
+
 </head>
 <body>
 </body>

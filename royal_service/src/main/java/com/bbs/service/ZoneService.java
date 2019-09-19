@@ -12,4 +12,7 @@ public interface ZoneService {
     List<Zone> findAllZone();
 
     int save(String userName, String zoneName, String reason);
+
+    void addZone(String zoneName) throws Exception;
+
 }

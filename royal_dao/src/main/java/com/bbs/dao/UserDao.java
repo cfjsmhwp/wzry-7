@@ -38,7 +38,7 @@ public interface UserDao {
      * @param user
      * @throws Exception
      */
-    @Insert("insert into bbs_user_table (userName,userPass,email,lastLoginTime) values (#{userName},#{userPass},#{email},#{lastLoginTime})")
+    @Insert("insert into bbs_user_table (userName,userPass,email,lastLoginTime,loginStatus) values (#{userName},#{userPass},#{email},#{lastLoginTime},#{loginStatus})")
     void register(UserInfo user) throws Exception;
 
     /**

@@ -1,7 +1,7 @@
 package com.bbs.domain;
 
 public class ZoneApply {
-    private int applyZoneId;
+    private Integer applyZoneId;
     //新版块名
     private String zoneName;
     //用户名
@@ -9,7 +9,7 @@ public class ZoneApply {
     //申请原因
     private String reason;
     //处理状态（未处理0，已处理1）
-    private int status;
+    private Integer status;
     private String statusStr;
 
     public int getApplyZoneId() {

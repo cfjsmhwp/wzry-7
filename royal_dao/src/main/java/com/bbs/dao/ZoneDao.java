@@ -35,4 +35,12 @@ public interface ZoneDao {
      */
     @Insert("insert into bbs_zoneapply_table (userName,zoneName,reason) values(#{userName},#{zoneName},#{reason})")
     int save(@Param("userName") String userName, @Param("zoneName")String zoneName, @Param("reason")String reason);
+
+    /**
+     * 添加板块
+     * @param zoneName
+     * @throws Exception
+     */
+    @Insert("insert into bbs_zone_table (zoneName,isDef) values (#{zoneName},#{isDef})")
+    void addZone(@Param("zoneName") String zoneName,@Param("isDef") Integer isDef) throws Exception;
 }

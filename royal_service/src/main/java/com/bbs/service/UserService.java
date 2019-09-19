@@ -30,4 +30,5 @@ public interface UserService extends UserDetailsService {
     void updatePwd(String userName, String oldPassword, String newPassword);
 
     int applyUpgrade(String userName);
+
 }

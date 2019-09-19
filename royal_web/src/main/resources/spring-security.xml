@@ -8,13 +8,13 @@
     http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 配置不拦截的资源 -->
-    <!--<security:http pattern="/jsp/login.jsp" security="none"/>-->
-    <!--<security:http pattern="/jsp/failer.jsp" security="none"/>-->
-    <!--<security:http pattern="/bootstrap/**" security="none"/>-->
-    <!--<security:http pattern="/img/**" security="none"/>-->
-    <!--<security:http pattern="/plugins/**" security="none"/>-->
-    <!--<security:http pattern="/fonts/**" security="none"/>-->
-    <mvc:default-servlet-handler/>
+    <security:http pattern="/jsp/login.jsp" security="none"/>
+    <security:http pattern="/jsp/failer.jsp" security="none"/>
+    <security:http pattern="/bootstrap/**" security="none"/>
+    <security:http pattern="/img/**" security="none"/>
+    <security:http pattern="/plugins/**" security="none"/>
+    <security:http pattern="/fonts/**" security="none"/>
+    <!--<mvc:default-servlet-handler/>-->
 
     <!--
     	配置具体的规则

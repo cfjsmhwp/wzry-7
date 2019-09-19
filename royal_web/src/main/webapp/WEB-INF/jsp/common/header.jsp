@@ -12,24 +12,27 @@
         <div class="hm-inner-l l"></div>
         <div class="hm-inner-r r">
             <div class="box">
+
+                ${loginUser.loginStatus}
+
                 <c:if test="${empty loginUser}">
                     <a href="javascipt:;" id="login" class="to-login">用户登录</a>
                     <a href="${pageContext.request.contextPath}/register.jsp">【新用户注册】</a>
                 </c:if>
                 <c:if test="${not empty loginUser && loginUser.role==1}">
-                    <a href="javascipt:;" id="login" class="to-login">欢迎 普通用户：${loginUser.userName}</a>
+                    <a href="javascipt:;" id="" class="">欢迎 普通用户：${loginUser.userName}</a>
                     <a href="${pageContext.request.contextPath}/user/getUser.do?method=userInfo">个人中心</a>
-                    <a href="${pageContext.request.contextPath}/user/logout.do">注销</a>
+                    <a href="${pageContext.request.contextPath}/user/logout.do?userId=${loginUser.userId}">注销</a>
                 </c:if>
                 <c:if test="${not empty loginUser && loginUser.role==2}">
-                    <a href="javascipt:;" id="login" class="to-login">欢迎 高级用户：${loginUser.userName}</a>
+                    <a href="javascipt:;" id="" class="">欢迎 高级用户：${loginUser.userName}</a>
                     <a href="${pageContext.request.contextPath}/user/getUser.do?method=userInfo">个人中心</a>
-                    <a href="${pageContext.request.contextPath}/user/logout.do">注销</a>
+                    <a href="${pageContext.request.contextPath}/user/logout.do?userId=${loginUser.userId}">注销</a>
                 </c:if>
                 <c:if test="${not empty loginUser && loginUser.role==3}">
-                    <a href="javascipt:;" id="login" class="to-login">欢迎 超级用户：${loginUser.userName}</a>
+                    <a href="javascipt:;" id="" class="">欢迎 超级用户：${loginUser.userName}</a>
                     <a href="${pageContext.request.contextPath}/user/getUser.do?method=userInfo">个人中心</a>
-                    <a href="${pageContext.request.contextPath}/user/logout.do">注销</a>
+                    <a href="${pageContext.request.contextPath}/user/logout.do?userId=${loginUser.userId}">注销</a>
                 </c:if>
 
 
