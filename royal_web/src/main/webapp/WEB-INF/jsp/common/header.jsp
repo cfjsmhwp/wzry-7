@@ -13,7 +13,7 @@
         <div class="hm-inner-r r">
             <div class="box">
                 <c:if test="${empty loginUser}">
-                    <a href="javascipt:;" id="login" class="to-login">游客登录</a>
+                    <a href="javascipt:;" id="login" class="to-login">用户登录</a>
                     <a href="${pageContext.request.contextPath}/register.jsp">【新用户注册】</a>
                 </c:if>
                 <c:if test="${not empty loginUser && loginUser.role==1}">
