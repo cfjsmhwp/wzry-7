@@ -39,7 +39,7 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>申请高级用户
+            <a href="${pageContext.request.contextPath}/article/findAll.do">首页</a><span>></span>申请高级用户
         </div>
     </div>
 </div>
@@ -120,7 +120,7 @@ $(function () {
         url:"${pageContext.request.contextPath}/article/getTotalCount.do",
         //contentType:"application/json;charset=utf-8",
         dataType:"json",
-        data:{"userName":'${loginUser.userName}'},
+        data:{"userName":"${loginUser.userName}"},
         success:function(data){
             $("#getArticleCount").html(data);
         }
@@ -128,7 +128,8 @@ $(function () {
 
     $("#apply").click(function () {
         if ($("#getArticleCount").html()>=5){
-            $.post("${pageContext.request.contextPath}/user/applyUpgrade.do",{"userName":${loginUser.userName}},function (data) {
+            $.post("${pageContext.request.contextPath}/user/applyUpgrade.do",{"userName":"${loginUser.userName}"},
+                function (data) {
                 if (data==1){
                     alert("申请成功！")
                 }
