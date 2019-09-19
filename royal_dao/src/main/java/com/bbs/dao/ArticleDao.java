@@ -21,10 +21,7 @@ public interface ArticleDao {
      * 发帖
      * @param article
      */
-    @Insert("insert into bbs_article_table (title,content,sendTime,senderName,isTop," +
-            "replyCount,upvoteCount,browseCount,zoneId,isReport) values " +
-            "(#{title},#{content},#{sendTime},#{senderName},#{isTop}," +
-            "#{replyCount},#{upvoteCount},#{browseCount},#{zoneId},#{isReport})")
+    @Insert("insert into bbs_article_table (title,content,sendTime,senderName,isTop，replyCount，upvoteCount，browseCount，zoneId，isReport) values (#{article.title},#{article.content},#{article.sendTime},#{article.sendTime},#{article.senderName},#{article.isTop},#{article.replyCount},#{article.upvoteCount},#{article.browseCount},#{article.zoneId},#{article.isReport})")
     void addArticle(Article article);
 
     /**
@@ -52,7 +49,7 @@ public interface ArticleDao {
             @Result(property = "browseCount",column = "browseCount"),
             @Result(property = "zoneId",column = "zoneId"),
             @Result(property = "isReport",column = "isReport"),
-            @Result(property = "commentList",column = "articleId",javaType = java.util.List.class,
+            @Result(property = "commentList",column = "articleId",javaType = List.class,
                     many = @Many(select = "com.bbs.dao.CommentDao.getCommentList"))
     })
     Article getArticleById(Integer articleId);
@@ -90,4 +87,12 @@ public interface ArticleDao {
      */
     @Select("select * from bbs_article_table where title like #{condition} or content like #{condition}")
     List<Article> findByCondition(String condition);
+
+    /**
+     * 查询某人发帖总数
+     * @param senderName
+     * @return
+     */
+    @Select("select count(*) from bbs_article_table where senderName = #{senderName}")
+    int getTotalCount(String senderName);
 }
