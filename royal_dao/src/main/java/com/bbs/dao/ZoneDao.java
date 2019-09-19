@@ -1,10 +1,7 @@
 package com.bbs.dao;
 
 import com.bbs.domain.Zone;
-import org.apache.ibatis.annotations.Many;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,7 +14,7 @@ public interface ZoneDao {
     @Results({
             @Result(property = "zoneId",column = "zoneId"),
             @Result(property = "zoneName",column = "zoneName"),
-            @Result(property = "articleList",column = "zoneId",javaType = java.util.List.class,
+            @Result(property = "articleList",column = "zoneId",javaType = List.class,
                     many = @Many(select = "com.bbs.dao.ArticleDao.getArticleListByZoneId"))
     })
     List<Zone> getZoneList();
@@ -28,4 +25,14 @@ public interface ZoneDao {
      */
     @Select("select * from bbs_zone_table")
     List<Zone> findAllZone();
+
+    /**
+     * 开辟新板块申请
+     * @param userName
+     * @param zoneName
+     * @param reason
+     * @return
+     */
+    @Insert("insert into bbs_zoneapply_table (userName,zoneName,reason) values(#{userName},#{zoneName},#{reason})")
+    int save(@Param("userName") String userName, @Param("zoneName")String zoneName, @Param("reason")String reason);
 }

@@ -13,41 +13,14 @@
     <script type="text/javascript" src="../js/hm-bbs.js"></script>
 </head>
 <body>
-<!-- 头部 -->
-<div class="hm-top-nav">
-    <div class="hm-inner clearfix">
-        <div class="hm-inner-l l"></div>
-        <div class="hm-inner-r r">
-            <div class="box">
-                <a href="javascript:;" id="login" class="to-login">游客登录</a>
-                <a href="register.html">【新用户注册】</a>
-                <div id="dialogBg"></div>
-                <div id="dialog" class="animated">
-                    <img class="dialogIco" width="50" height="40" src="../images/ico.png"/>
-                    <div class="dialogTop" style="height:25px;">
-                        <a href="javascript:;" class="closeDialogBtn">关闭</a>
-                    </div>
-                    <form action="user/login.do" >
-                        <ul class="editInfos">
-                            <li>用户名：<input type="text" id="userName" name="userName" class="ipt"/></li>
-                            <li>密&nbsp;&nbsp;&nbsp;码：<input type="password" id="userPass" name="userPass" class="ipt"/></li>
-                            <li><input type="submit" value="登录" class="submitBtn"/></li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
+<jsp:include page="common/header.jsp"/>
 
 <!-- 主体部分 -->
 <div class="hm-header"></div>
 <div class="hm-body hm-body-bgc">
     <div class="hm-inner">
         <div class="hm-banner"></div>
-
-
 
 
         <!--头部，帖子统计，搜索-->
@@ -71,8 +44,6 @@
         </div>
 
 
-
-
         <!-- 导航 -->
         <ul class="hm-bbs-nav border-lrb clearfix">
 
@@ -88,8 +59,6 @@
             </c:forEach>
 
         </ul>
-
-
 
 
         <!-- 主体部分 -->
@@ -149,16 +118,9 @@
     </div>
 </div>
 
-
 <!-- 底部 -->
-<div class="hm-footer" style="padding-top:10px;">
-    <div class="hm-inner">
-        <div class="hm-footer-cpr">
-            <p>Copyright@2006-2017 ITCAST. All Rights Reserved</p>
-            <p>传智播客 版权所有</p>
-        </div>
-    </div>
-</div>
+<jsp:include page="common/footer.jsp"/>
+
 
 <!-- 右边发帖，回顶部 -->
 <div class="fixedBar" id="j_fixedBar">
@@ -195,7 +157,7 @@
 </body>
 </html>
 <script type="text/javascript">
-  $(function () {
+    <%--
       //显示弹框
       $('.box #login').click(function () {
           var className = $(this).attr('class');
@@ -212,11 +174,13 @@
               $("#j_fixedBar").show();
           });
       });
+--%>
 
-      //查询用户是否登录
-      $.post("user/findUser.do",{},function(data){
-
-          alert(data);
-      })
-  });
+  //   $(function () {
+  //     //查询用户是否登录
+  //     $.post("user/findUser.do",{},function(data){
+  //
+  //         alert(data);
+  //     })
+  // });
 </script>

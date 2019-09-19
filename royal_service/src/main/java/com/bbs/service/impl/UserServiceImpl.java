@@ -1,20 +1,16 @@
 package com.bbs.service.impl;
 
 import com.bbs.dao.UserDao;
-import com.bbs.domain.UserInfo;
+import com.bbs.domain.User;
 import com.bbs.service.UserService;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.stream.events.Comment;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 @Service("userService")
 @Transactional
@@ -71,4 +67,40 @@ public class UserServiceImpl implements UserService {
         }
         return list;
     }
+    @Override
+    public void register(User user) throws Exception {
+        userDao.register(user);
+    }
+
+    @Override
+    public User login(String userName, String userPass) throws Exception {
+        return userDao.login(userName,userPass);
+    }
+
+    @Override
+    public User findByUserName(String userName) throws Exception {
+        return userDao.findByUserName(userName);
+    }
+
+    @Override
+    public void updateLoginTime(String userName, Date date) throws Exception {
+        userDao.updateLoginTime(userName,date);
+    }
+
+    @Override
+    public int update(String userName, String email, String picUrl) {
+        return userDao.update(userName,email,picUrl);
+    }
+
+    @Override
+    public void updatePwd(String userName, String oldPassword, String newPassword) {
+        userDao.updatePwd(userName,oldPassword,newPassword);
+    }
+
+    @Override
+    public int applyUpgrade(String userName) {
+        int flag = userDao.applyUpgrade(userName);
+        return flag;
+    }
+
 }
