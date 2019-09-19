@@ -6,9 +6,9 @@
 
 </head>
 <style type="text/css">
-    html,body{
-        overflow:auto;
-        height:100%;
+    html, body {
+        overflow: auto;
+        height: 100%;
     }
 
     .line-limit-length {
@@ -26,19 +26,19 @@
 <body>
 <div class="hrms_dept_container">
     <!-- 导航栏-->
-    <%@ include file="../../jsp/commom/head.jsp"%>
+    <%@ include file="../../jsp/commom/head.jsp" %>
 
 
     <!-- 中间部分（左侧栏+表格内容） -->
     <div class="hrms_dept_body">
         <!-- 左侧栏 -->
-        <%@ include file="../../jsp/commom/leftsidebar.jsp"%>
+        <%@ include file="../../jsp/commom/leftsidebar.jsp" %>
 
         <!-- 表格内容 -->
         <div class="dept_info col-sm-10">
             <div class="panel panel-success">
                 <!-- 路径导航 -->
-                <div >
+                <div>
                     <ol class="breadcrumb">
                         <li><a href="#">用户帖管理</a></li>
                         <li class="active">帖子信息</li>
@@ -48,7 +48,7 @@
                 <!-- Table -->
                 <div>
                     <div style="float: left">
-                        <form method="get" id="articleSearchForm">
+                        <form method="get" id="articleSearchForm" action="${pageContext.request.contextPath}/article/addFindByPage.do?page=${pageInfo.pageNum}">
                             <table>
                                 <tr>
                                     <th>
@@ -56,7 +56,7 @@
                                     </th>
                                     <th>
                                         <input type="text" id="title" class="form-control"
-                                               name="title" value="">
+                                               name="title" value="${title}">
                                         <input type="hidden" id="pageNum" name="pn" value="">
                                     </th>
                                     <th>
@@ -64,10 +64,10 @@
                                     </th>
                                     <th>
                                         <input type="text" id="article_sendername" class="form-control"
-                                               name="sendername" value="">
+                                               name="senderName" value="${senderName}">
                                     </th>
                                     <th colspan="2">
-                                        <input type="button" value="查询" class="form-control btn-primary">
+                                        <input type="submit" value="查询" class="form-control btn-primary">
                                     </th>
                                 </tr>
                             </table>
@@ -92,39 +92,39 @@
                     </tr>
                     </thead>
                     <tbody>
-                        
-                            <tr>
-                                <td width="15%">标题</td>
-                                <td width="30%" class="line-limit-length">
-                                   
-                                </td>
-                                <td width="5%" class="line-limit-length">${article.sendername}</td>
-                                <td width="5%" class="line-limit-length">
-                                   
-                                </td>
-                                <td width="5%">
-                                   
-                                </td>
-                                <td width="5%">
-                                   
-                                </td>
-                                <td width="5%">
-                                   
-                                </td>
-                                <td width="15%">
-                                    
-                                </td>
-                                <td width="15%">
-                                    <a href="/article/deleteArticle.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}" role="button" class="btn btn-primary">屏蔽</a>
-                                    <c:if test="${article.istop==0}">
-                                        <a href="/article/changeStatus.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}" role="button" class="btn btn-danger" >置顶</a>
-                                    </c:if>
-                                    <c:if test="${article.istop==1}">
-                                        <a href="/article/changeStatus.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}" role="button" class="btn btn-info" >取消</a>
-                                    </c:if>
-                                </td>
-                            </tr>
-                        </c:forEach>
+                    <c:forEach items="${pageInfo.list}" var="article">
+                        <tr>
+                            <td width="8%">${article.title}</td>
+                            <td width="25%" class="line-limit-length">${article.content}</td>
+                            <td width="5%" class="line-limit-length">${article.senderName}</td>
+                            <td width="3%" class="line-limit-length">${article.isTopStr}</td>
+                            <td width="3%" class="line-limit-length">${article.replyCount}</td>
+                            <td width="3%" class="line-limit-length">${article.upvoteCount}</td>
+                            <td width="3%" class="line-limit-length">${article.browseCount}</td>
+                            <td width="6%" class="line-limit-length">${article.zoneIdStr}</td>
+                            <td width="10%" class="line-limit-length">
+                                <c:if test="${article.articleStatus==0}">
+                                    <a href="/article/deleteArticle.do?id=${article.articleId}&page=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&articleStatus=${article.articleStatus}&title=${title}"
+                                       role="button" class="btn btn-primary">屏蔽</a>
+                                </c:if>
+                               <c:if test="${article.articleStatus==1}">
+                                    <a href="/article/deleteArticle.do?id=${article.articleId}&page=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&articleStatus=${article.articleStatus}&title=${title}"
+                                       role="button" class="btn btn-success">显示</a>
+                                </c:if>
+
+                                <c:if test="${article.isTop==0}">
+                                    <a href="/article/changeStatus.do?id=${article.articleId}&page=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&title=${title}"
+                                       role="button" class="btn btn-danger">置顶</a>
+                                </c:if>
+                                <c:if test="${article.isTop==1}">
+                                    <a href="/article/changeStatus.do?id=${article.articleId}&page=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&title=${title}"
+                                       role="button" class="btn btn-info">取消</a>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
+
                     </tbody>
                 </table>
 
@@ -134,7 +134,7 @@
             <div class="row">
                 <!--文字信息-->
                 <div class="col-md-6">
-                    当前第 ${articleMsgs.pageNum} 页.总共 ${articleMsgs.pages} 页.一共 ${articleMsgs.total} 条记录
+                    当前第 ${pageInfo.pageNum} 页.总共 ${pageInfo.pages} 页.一共 ${pageInfo.total} 条记录
                 </div>
 
                 <!--点击分页-->
@@ -142,47 +142,53 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="#" onclick="searchArticle(1)">首页</a></li>
+                            <li><a href="#" onclick="searchArticle(1,'${title}','${senderName}')">首页</a></li>
                             <!--上一页-->
                             <li>
-                                <c:if test="${articleMsgs.hasPreviousPage}">
-                                        <a href="#" onclick="searchArticle('${articleMsgs.pageNum-1}')" aria-label="Previous">
-                                            <span aria-hidden="true">«</span>
-                                        </a>
+                                <c:if test="${pageInfo.hasPreviousPage}">
+                                    <a href="#" onclick="searchArticle('${pageInfo.pageNum-1}','${title}','${senderName}')"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">«</span>
+                                    </a>
                                 </c:if>
                             </li>
 
-                            <c:forEach items="${articleMsgs.navigatepageNums}" var="page_num">
-                                <c:if test="${page_num == articleMsgs.pageNum}">
+                            <c:forEach items="${pageInfo.navigatepageNums}" var="page_num">
+                                <c:if test="${page_num == pageInfo.pageNum}">
                                     <li class="active"><a href="#">${page_num}</a></li>
                                 </c:if>
-                                <c:if test="${page_num != articleMsgs.pageNum}">
-                                    <li><a href="#" onclick="searchArticle('${page_num}')">${page_num}</a></li>
+                                <c:if test="${page_num != pageInfo.pageNum}">
+                                    <li><a href="#" onclick="searchArticle('${page_num}','${title}','${senderName}')">${page_num}</a></li>
                                 </c:if>
                             </c:forEach>
 
                             <!--下一页-->
                             <li>
-                                <c:if test="${articleMsgs.hasNextPage}">
-                                    <a href="javascript:void(0)" onclick="searchArticle('${articleMsgs.pageNum+1}')"
+                                <c:if test="${pageInfo.hasNextPage}">
+                                    <a href="javascript:void(0)" onclick="searchArticle('${pageInfo.pageNum+1}','${title}','${senderName}')"
                                        aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
                                 </c:if>
                             </li>
-                            <li><a href="javascript:void(0)" onclick="searchArticle('${articleMsgs.pages}')">尾页</a></li>
+                            <li><a href="javascript:void(0)" onclick="searchArticle('${pageInfo.pages}','${title}','${senderName}')">尾页</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
         </div><!-- /.dept_info -->
         <!-- 尾部-->
-        <%@ include file="../../jsp/commom/foot.jsp"%>
+        <%@ include file="../../jsp/commom/foot.jsp" %>
     </div><!-- /.hrms_dept_body -->
 
 </div><!-- /.hrms_dept_container -->
 
-<%--<%@ include file="ArticleAdd.jsp"%>--%>
-<%@ include file="ArticleUpdate.jsp"%>
+<%--<%@ include file="ArticleAdd.jsp"%>
+<%@ include file="ArticleUpdate.jsp"%>--%>
 </body>
+<script>
+    function searchArticle(page,title,senderName) {
+        location.href="${pageContext.request.contextPath}/article/addFindByPage.do?page="+page+"&title="+title+"&senderName="+senderName+'';
+    }
+</script>
 </html>

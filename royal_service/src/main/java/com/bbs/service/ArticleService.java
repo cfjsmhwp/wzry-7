@@ -2,14 +2,16 @@ package com.bbs.service;
 
 import com.bbs.domain.Article;
 import com.bbs.domain.Zone;
+import com.github.pagehelper.PageHelper;
 
 import java.text.ParseException;
 import java.util.List;
 
 public interface ArticleService {
     //查询所有帖子
+    List<Article> getArticleList(int page);
     List<Article> getArticleList();
-
+    List<Article> getArticleList(int page,String title,String senderName);
     //发帖
     void addArticle(Article article);
 
@@ -31,4 +33,10 @@ public interface ArticleService {
 
 
     List<Article> findByCondition(String condition);
+    //置顶条件
+    List<Article> changeStatus(String articleId, String senderName,int pn,int isTop,String title);
+    //屏蔽
+    List<Article> deleteArticle(String articleId, String senderName, int pn, int articleStatus,String title);
+
+
 }

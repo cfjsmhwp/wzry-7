@@ -7,6 +7,7 @@ import com.bbs.domain.Article;
 import com.bbs.domain.Zone;
 import com.bbs.service.ArticleService;
 import com.bbs.utils.DateUtils;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,17 +29,38 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 查询所有帖子
+     *
      * @return
      */
+    @Override
+    public List<Article> getArticleList(int page) {
+        PageHelper.startPage(page, 6);
+        return articleDao.getArticleList();
+    }
+
+    //方法重载
     @Override
     public List<Article> getArticleList() {
         return articleDao.getArticleList();
     }
 
+    @Override
+    public List<Article> getArticleList(int page, String title, String senderName) {
+        if (title.trim()!=null){
+            title=new String("%"+title+"%");
+        }
+        if (senderName.trim()!=null){
+            senderName=new String("%"+senderName+"%");
+        }
+        PageHelper.startPage(page,6);
+        return articleDao.fuzzyQuery(title,senderName);
+    }
+
+
     /**
      * 发帖
-     * @param article
      *
+     * @param article
      */
     @Override
     public void addArticle(Article article) {
@@ -48,6 +70,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 根据zoneId查询帖子
+     *
      * @param zoneId
      * @return
      */
@@ -58,6 +81,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     /**
      * 根据articleId查询帖子信息
+     *
      * @param articleId
      * @return
      */
@@ -86,11 +110,37 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 
-
     @Override
     public List<Article> findByCondition(String condition) {
         condition = condition.trim();
-        return articleDao.findByCondition("%"+condition+"%");
+        return articleDao.findByCondition("%" + condition + "%");
     }
+
+    @Override
+    public List<Article> changeStatus(String articleId, String senderName, int pn,int isTop,String title) {
+        if (isTop==0){
+            articleDao.changeStatus(articleId, senderName);
+        }else if (isTop==1){
+            articleDao.cancelStatus(articleId, senderName);
+        }
+
+        PageHelper.startPage(pn, 6);
+        return articleDao.fuzzyQuery(title,senderName);
+
+
+    }
+
+    @Override
+    public List<Article> deleteArticle(String articleId, String senderName, int pn, int articleStatus ,String title) {
+        if (articleStatus==0){
+            articleDao.deleteArticle(articleId, senderName);
+        }else if (articleStatus==1){
+            articleDao.showArticle(articleId, senderName);
+        }
+        PageHelper.startPage(pn, 6);
+        return articleDao.fuzzyQuery(title,senderName);
+
+    }
+
 
 }

@@ -21,6 +21,11 @@ public class Article implements Serializable {
     private String senderName;
     //是否置顶，如果是0，代表不置顶；如果是1，代表置顶；
     private Integer isTop;
+
+    private String isTopStr;
+
+
+
     //评论数
     private Integer replyCount;
     //点赞数
@@ -29,6 +34,8 @@ public class Article implements Serializable {
     private Integer browseCount;
     //所在交流区
     private Integer zoneId;
+
+    private String zoneIdStr;
     //举报状态
     private Integer isReport;
     //一对多的评论集合
@@ -36,6 +43,44 @@ public class Article implements Serializable {
 
     private String sendTimeStr;
 
+    //是否屏蔽0为屏蔽，1为显示
+    private  int articleStatus;
+
+    public int getArticleStatus() {
+        return articleStatus;
+    }
+
+    public void setArticleStatus(int articleStatus) {
+        this.articleStatus = articleStatus;
+    }
+
+    public String getZoneIdStr() {
+        if (zoneId!=null) {
+            if (zoneId==1) {
+                zoneIdStr="综合交流区";
+            }
+        }
+        return zoneIdStr;
+    }
+
+    public void setZoneIdStr(String zoneIdStr) {
+        this.zoneIdStr = zoneIdStr;
+    }
+
+    public String getIsTopStr() {
+        if (isTop!=null) {
+            if (isTop==0){
+                isTopStr="否";
+            }else if (isTop==1){
+                isTopStr="是";
+            }
+        }
+        return isTopStr;
+    }
+
+    public void setIsTopStr(String isTopStr) {
+        this.isTopStr = isTopStr;
+    }
     public List<Comment> getCommentList() {
         return commentList;
     }
@@ -150,11 +195,15 @@ public class Article implements Serializable {
                 ", sendTime=" + sendTime +
                 ", senderName='" + senderName + '\'' +
                 ", isTop=" + isTop +
+                ", isTopStr='" + isTopStr + '\'' +
                 ", replyCount=" + replyCount +
                 ", upvoteCount=" + upvoteCount +
                 ", browseCount=" + browseCount +
                 ", zoneId=" + zoneId +
+                ", zoneIdStr='" + zoneIdStr + '\'' +
                 ", isReport=" + isReport +
+                ", commentList=" + commentList +
+                ", sendTimeStr='" + sendTimeStr + '\'' +
                 '}';
     }
 }
