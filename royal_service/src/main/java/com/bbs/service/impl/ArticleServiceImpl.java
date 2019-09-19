@@ -44,18 +44,6 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.getArticleList();
     }
 
-    @Override
-    public List<Article> getArticleList(int page, String title, String senderName) {
-        if (title.trim()!=null){
-            title=new String("%"+title+"%");
-        }
-        if (senderName.trim()!=null){
-            senderName=new String("%"+senderName+"%");
-        }
-        PageHelper.startPage(page,6);
-        return articleDao.fuzzyQuery(title,senderName);
-    }
-
 
     /**
      * 发帖
@@ -117,7 +105,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> changeStatus(String articleId, String senderName, int pn,int isTop,String title) {
+    public List<Article> changeStatus(String articleId, String senderName, int pn,int isTop) {
         if (isTop==0){
             articleDao.changeStatus(articleId, senderName);
         }else if (isTop==1){
@@ -125,22 +113,33 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         PageHelper.startPage(pn, 6);
-        return articleDao.fuzzyQuery(title,senderName);
+        return articleDao.getArticleList();
 
 
     }
 
     @Override
-    public List<Article> deleteArticle(String articleId, String senderName, int pn, int articleStatus ,String title) {
+    public List<Article> deleteArticle(String articleId, String senderName, int pn, int articleStatus) {
         if (articleStatus==0){
             articleDao.deleteArticle(articleId, senderName);
         }else if (articleStatus==1){
             articleDao.showArticle(articleId, senderName);
         }
         PageHelper.startPage(pn, 6);
-        return articleDao.fuzzyQuery(title,senderName);
+        return articleDao.getArticleList();
 
     }
 
+    @Override
+    public List<Article> fuzzyQuery(String title, String senderName, int pn) {
+        if (title.trim()!=null){
+            title=new String("%"+title+"%");
+        }
+        if (senderName.trim()!=null){
+            senderName=new String("%"+senderName+"%");
+        }
+        PageHelper.startPage(pn, 6);
+        return articleDao.fuzzyQuery(title,senderName);
+    }
 
 }

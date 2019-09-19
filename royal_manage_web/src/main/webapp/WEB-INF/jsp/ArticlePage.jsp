@@ -48,7 +48,7 @@
                 <!-- Table -->
                 <div>
                     <div style="float: left">
-                        <form method="get" id="articleSearchForm" action="${pageContext.request.contextPath}/article/addFindByPage.do?page=${pageInfo.pageNum}">
+                        <form method="get" id="articleSearchForm" action="${pageContext.request.contextPath}/article/fuzzyQuery.do?pn=${pageInfo.pageNum}">
                             <table>
                                 <tr>
                                     <th>
@@ -66,7 +66,9 @@
                                         <input type="text" id="article_sendername" class="form-control"
                                                name="senderName" value="${senderName}">
                                     </th>
+
                                     <th colspan="2">
+
                                         <input type="submit" value="查询" class="form-control btn-primary">
                                     </th>
                                 </tr>
@@ -104,20 +106,20 @@
                             <td width="6%" class="line-limit-length">${article.zoneIdStr}</td>
                             <td width="10%" class="line-limit-length">
                                 <c:if test="${article.articleStatus==0}">
-                                    <a href="/article/deleteArticle.do?id=${article.articleId}&page=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&articleStatus=${article.articleStatus}&title=${title}"
+                                    <a href="/article/deleteArticle.do?id=${article.articleId}&pn=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&articleStatus=${article.articleStatus}&title="
                                        role="button" class="btn btn-primary">屏蔽</a>
                                 </c:if>
                                <c:if test="${article.articleStatus==1}">
-                                    <a href="/article/deleteArticle.do?id=${article.articleId}&page=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&articleStatus=${article.articleStatus}&title=${title}"
+                                    <a href="/article/deleteArticle.do?id=${article.articleId}&pn=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&articleStatus=${article.articleStatus}"
                                        role="button" class="btn btn-success">显示</a>
                                 </c:if>
 
                                 <c:if test="${article.isTop==0}">
-                                    <a href="/article/changeStatus.do?id=${article.articleId}&page=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&title=${title}"
+                                    <a href="/article/changeStatus.do?id=${article.articleId}&pn=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}"
                                        role="button" class="btn btn-danger">置顶</a>
                                 </c:if>
                                 <c:if test="${article.isTop==1}">
-                                    <a href="/article/changeStatus.do?id=${article.articleId}&page=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}&title=${title}"
+                                    <a href="/article/changeStatus.do?id=${article.articleId}&pn=${pageInfo.pageNum}&isTop=${article.isTop}&senderName=${article.senderName}"
                                        role="button" class="btn btn-info">取消</a>
                                 </c:if>
                             </td>
@@ -142,11 +144,11 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="#" onclick="searchArticle(1,'${title}','${senderName}')">首页</a></li>
+                            <li><a href="#" onclick="searchArticle(1)">首页</a></li>
                             <!--上一页-->
                             <li>
                                 <c:if test="${pageInfo.hasPreviousPage}">
-                                    <a href="#" onclick="searchArticle('${pageInfo.pageNum-1}','${title}','${senderName}')"
+                                    <a href="#" onclick="searchArticle('${pageInfo.pageNum-1}')"
                                        aria-label="Previous">
                                         <span aria-hidden="true">«</span>
                                     </a>
@@ -158,20 +160,20 @@
                                     <li class="active"><a href="#">${page_num}</a></li>
                                 </c:if>
                                 <c:if test="${page_num != pageInfo.pageNum}">
-                                    <li><a href="#" onclick="searchArticle('${page_num}','${title}','${senderName}')">${page_num}</a></li>
+                                    <li><a href="#" onclick="searchArticle('${page_num}','${pageInfo.pageSize}')">${page_num}</a></li>
                                 </c:if>
                             </c:forEach>
 
                             <!--下一页-->
                             <li>
                                 <c:if test="${pageInfo.hasNextPage}">
-                                    <a href="javascript:void(0)" onclick="searchArticle('${pageInfo.pageNum+1}','${title}','${senderName}')"
+                                    <a href="javascript:void(0)" onclick="searchArticle('${pageInfo.pageNum+1}')"
                                        aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
                                 </c:if>
                             </li>
-                            <li><a href="javascript:void(0)" onclick="searchArticle('${pageInfo.pages}','${title}','${senderName}')">尾页</a></li>
+                            <li><a href="javascript:void(0)" onclick="searchArticle('${pageInfo.pages}')">尾页</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -187,8 +189,8 @@
 <%@ include file="ArticleUpdate.jsp"%>--%>
 </body>
 <script>
-    function searchArticle(page,title,senderName) {
-        location.href="${pageContext.request.contextPath}/article/addFindByPage.do?page="+page+"&title="+title+"&senderName="+senderName+'';
+    function searchArticle(page) {
+        location.href="${pageContext.request.contextPath}/article/findByPage.do?page="+page;
     }
 </script>
 </html>
