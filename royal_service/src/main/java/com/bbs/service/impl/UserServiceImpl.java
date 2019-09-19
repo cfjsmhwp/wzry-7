@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +22,12 @@ import java.util.Date;
 @Transactional
 public class UserServiceImpl implements UserService {
 
+
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     /**
      * 发帖，添加帖子
@@ -73,8 +78,9 @@ public class UserServiceImpl implements UserService {
         return list;
     }
     @Override
-    public void register(UserInfo user) throws Exception {
-        userDao.register(user);
+    public void register(UserInfo userInfo) throws Exception {
+       userInfo.setUserPass(bCryptPasswordEncoder.encode(userInfo.getUserPass()));
+        userDao.register(userInfo);
     }
 
     @Override

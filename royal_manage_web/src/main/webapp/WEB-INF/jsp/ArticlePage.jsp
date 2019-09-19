@@ -92,7 +92,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        
+                    <c:forEach items="article">
                             <tr>
                                 <td width="15%">标题</td>
                                 <td width="30%" class="line-limit-length">
@@ -183,6 +183,6 @@
 </div><!-- /.hrms_dept_container -->
 
 <%--<%@ include file="ArticleAdd.jsp"%>--%>
-<%@ include file="ArticleUpdate.jsp"%>
+<%--<%@ include file="ArticleUpdate.jsp"%>--%>
 </body>
 </html>

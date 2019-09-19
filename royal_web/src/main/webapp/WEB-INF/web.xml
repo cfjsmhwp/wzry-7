@@ -50,7 +50,7 @@
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:applicationContext.xml</param-value>
+    <param-value>classpath:applicationContext.xml,classpath*:spring-security.xml</param-value>
 
     <!--classpath加载的是本工程类路径下的配置文件-->
     <!--classpath*加载的是本工程类路径下和引入的jar包的类路径下的配置文件-->

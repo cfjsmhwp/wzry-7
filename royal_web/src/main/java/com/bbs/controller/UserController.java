@@ -34,11 +34,13 @@ public class UserController {
     @RequestMapping("login.do")
     @ResponseBody
     public String login( HttpSession session, String userName,String userPass) throws Exception {
+
         UserInfo user = userService.login(userName,userPass);
         if (user==null){
             return "false";
         }else{
             userService.updateLoginTime(userName,new Date());
+            user.setLoginStatus(1);
             session.setAttribute("loginUser",user);
             return "true";
         }
@@ -50,7 +52,10 @@ public class UserController {
      */
     @RequestMapping("/logout.do")
     public String logout( HttpSession session){
+//        UserInfo user = (UserInfo) session.getAttribute("loginUser");
+//        user.setLoginStatus(0);
         session.invalidate();
+
         return "redirect:/article/findAll.do";
     }
 
@@ -76,6 +81,7 @@ public class UserController {
         Date date = new Date();
         user.setLastLoginTime(date);
         user.setRole(1);
+        user.setLoginStatus(1);
         userService.register(user);
         session.setAttribute("loginUser",user);
         ModelAndView mv = new ModelAndView();
