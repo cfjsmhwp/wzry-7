@@ -98,4 +98,13 @@ public interface UserDao {
      */
     @Update("update bbs_user_table set isupdating = 1 where userName = #{userName}")
     int applyUpgrade(String userName);
+
+    /**
+     * 修改登录状态
+     * @param userName
+     * @param loginStatus
+     * @throws Exception
+     */
+    @Update("update bbs_user_table set loginStatus = #{loginStatus} where userName = #{userName} ")
+    void updateLoginStatus(@Param("userName") String userName,@Param("loginStatus") int loginStatus) throws Exception;
 }

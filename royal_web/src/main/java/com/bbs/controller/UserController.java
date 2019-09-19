@@ -40,8 +40,8 @@ public class UserController {
         }else{
             userService.updateLoginTime(userName,new Date());
 
-            //测试能不能拿到这个LoginStatus，如果拿到就可以用
             user.setLoginStatus(1);
+            userService.updateLoginStatus(userName,user.getLoginStatus());
             session.setAttribute("loginUser",user);
             return "true";
         }
@@ -52,10 +52,11 @@ public class UserController {
      * @return
      */
     @RequestMapping("/logout.do")
-    public String logout( HttpSession session,Integer userId){
+    public String logout( HttpSession session,Integer userId) throws Exception {
 
-        //注销时直接通过，单击传过来的ID改变LoginStatus的值
-//        userService.updateLoginStatus(userId);
+        UserInfo loginUser = (UserInfo) session.getAttribute("loginUser");
+
+        userService.updateLoginStatus(loginUser.getUserName(),0);
         session.invalidate();
         return "redirect:/article/findAll.do";
     }

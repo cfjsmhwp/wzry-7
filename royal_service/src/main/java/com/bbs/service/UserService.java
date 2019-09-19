@@ -31,4 +31,5 @@ public interface UserService extends UserDetailsService {
 
     int applyUpgrade(String userName);
 
+    void updateLoginStatus(String userName, int loginStatus) throws Exception;
 }

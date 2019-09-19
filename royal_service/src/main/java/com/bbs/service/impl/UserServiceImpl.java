@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+//    @Autowired
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     /**
@@ -62,9 +62,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //处理自己的用户对象封装成UserDetails
-        //  UserInfo111 user=new UserInfo111(userInfo.getUsername(),"{noop}"+userInfo.getPassword(),getAuthority(userInfo.getRoles()));
-        User user = new User(userInfo.getUserName(), userInfo.getUserPass(), userInfo.getLoginStatus()==0?false:true, true, true, true, getAuthority(userInfo));
+        User user = new User(userInfo.getUserName(), userInfo.getUserPass(), true, true, true, true, getAuthority(userInfo));
         return user;
     }
 
@@ -79,12 +77,16 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public void register(UserInfo userInfo) throws Exception {
-       userInfo.setUserPass(bCryptPasswordEncoder.encode(userInfo.getUserPass()));
+//       userInfo.setUserPass(bCryptPasswordEncoder.encode(userInfo.getUserPass()));
         userDao.register(userInfo);
     }
 
     @Override
     public UserInfo login(String userName, String userPass) throws Exception {
+//        UserInfo userInfo = new UserInfo();
+//        userInfo.setUserName(userName);
+//        userInfo.setUserName(userPass);
+//        userInfo.setUserPass(bCryptPasswordEncoder.encode(userInfo.getUserPass()));
         return userDao.login(userName,userPass);
     }
 
@@ -112,6 +114,11 @@ public class UserServiceImpl implements UserService {
     public int applyUpgrade(String userName) {
         int flag = userDao.applyUpgrade(userName);
         return flag;
+    }
+
+    @Override
+    public void updateLoginStatus(String userName, int loginStatus) throws Exception {
+        userDao.updateLoginStatus(userName,loginStatus);
     }
 
 

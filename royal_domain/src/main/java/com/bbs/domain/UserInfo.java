@@ -176,4 +176,6 @@ public class UserInfo implements Serializable {
     public void setUpdateStatus(int updateStatus) {
         this.updateStatus = updateStatus;
     }
+
+
 }
