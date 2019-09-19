@@ -1,9 +1,14 @@
 package com.bbs.service.impl;
 
 import com.bbs.dao.UserDao;
-import com.bbs.domain.User;
+import com.bbs.domain.UserInfo;
 import com.bbs.service.UserService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,7 +58,7 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         //处理自己的用户对象封装成UserDetails
-        //  User user=new User(userInfo.getUsername(),"{noop}"+userInfo.getPassword(),getAuthority(userInfo.getRoles()));
+        //  UserInfo111 user=new UserInfo111(userInfo.getUsername(),"{noop}"+userInfo.getPassword(),getAuthority(userInfo.getRoles()));
         User user = new User(userInfo.getUserName(), userInfo.getUserPass(), userInfo.getLoginStatus()==0?false:true, true, true, true, getAuthority(userInfo));
         return user;
     }
@@ -68,17 +73,17 @@ public class UserServiceImpl implements UserService {
         return list;
     }
     @Override
-    public void register(User user) throws Exception {
+    public void register(UserInfo user) throws Exception {
         userDao.register(user);
     }
 
     @Override
-    public User login(String userName, String userPass) throws Exception {
+    public UserInfo login(String userName, String userPass) throws Exception {
         return userDao.login(userName,userPass);
     }
 
     @Override
-    public User findByUserName(String userName) throws Exception {
+    public UserInfo findByUserName(String userName) throws Exception {
         return userDao.findByUserName(userName);
     }
 

@@ -1,8 +1,14 @@
 package com.bbs.dao;
 
+import com.bbs.domain.UserInfo;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface UserDao {
@@ -33,7 +39,7 @@ public interface UserDao {
      * @throws Exception
      */
     @Insert("insert into bbs_user_table (userName,userPass,email,lastLoginTime) values (#{userName},#{userPass},#{email},#{lastLoginTime})")
-    void register(User user) throws Exception;
+    void register(UserInfo user) throws Exception;
 
     /**
      * 用户登录
@@ -43,7 +49,7 @@ public interface UserDao {
      * @throws Exception
      */
     @Select("select * from bbs_user_table where userName = #{userName} and userPass = #{userPass}")
-    User login(@Param("userName") String userName, @Param("userPass") String userPass) throws Exception;
+    UserInfo login(@Param("userName") String userName, @Param("userPass") String userPass) throws Exception;
 
     /**
      * 注册时发送ajax查询用户是否可用
@@ -52,7 +58,7 @@ public interface UserDao {
      * @throws Exception
      */
     @Select("select * from bbs_user_table where userName = #{userName}")
-    User findByUserName(String userName) throws Exception;
+    UserInfo findByUserName(String userName) throws Exception;
 
 
     /**

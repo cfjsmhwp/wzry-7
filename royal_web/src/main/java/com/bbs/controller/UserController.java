@@ -1,10 +1,9 @@
 package com.bbs.controller;
 
-import com.bbs.domain.User;
+import com.bbs.domain.UserInfo;
 import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +34,7 @@ public class UserController {
     @RequestMapping("login.do")
     @ResponseBody
     public String login( HttpSession session, String userName,String userPass) throws Exception {
-        User user = userService.login(userName,userPass);
+        UserInfo user = userService.login(userName,userPass);
         if (user==null){
             return "false";
         }else{
@@ -61,7 +60,7 @@ public class UserController {
     @RequestMapping("findByUsername.do")
 //    @ResponseBody
     public @ResponseBody String findByUsername(String userName) throws Exception {
-        User findUser = userService.findByUserName(userName);
+        UserInfo findUser = userService.findByUserName(userName);
         if (findUser==null){
             return "true";
         }else {
@@ -73,7 +72,7 @@ public class UserController {
     用户注册
      */
     @RequestMapping("/register.do")
-    public ModelAndView register(User user, HttpSession session) throws Exception {
+    public ModelAndView register(UserInfo user, HttpSession session) throws Exception {
         Date date = new Date();
         user.setLastLoginTime(date);
         user.setRole(1);

@@ -1,9 +1,11 @@
 package com.bbs.service;
 
-import com.bbs.domain.User;
+import com.bbs.domain.UserInfo;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.xml.stream.events.Comment;
 import java.util.Date;
+import java.util.List;
 
 public interface UserService extends UserDetailsService {
 
@@ -13,13 +15,13 @@ public interface UserService extends UserDetailsService {
 
     String[] findOnlineUserName();
 
-    List<UserInfo> findByPage(int page,int size);
+    List<UserInfo> findByPage(int page, int size);
 
-    void register(User user) throws Exception;
+    void register(UserInfo user) throws Exception;
 
-    User login(String userName, String userPass) throws Exception;
+    UserInfo login(String userName, String userPass) throws Exception;
 
-    User findByUserName(String userName) throws Exception;
+    UserInfo findByUserName(String userName) throws Exception;
 
     void updateLoginTime(String userName, Date date) throws  Exception;
 

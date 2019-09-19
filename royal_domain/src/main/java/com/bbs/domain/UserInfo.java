@@ -2,23 +2,27 @@ package com.bbs.domain;
 
 import com.bbs.utils.DateUtils;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserInfo {
-    private int userId;
-    private String userName;
-    private String userPass;
-    private String email;
-    private String picUrl;
-    private int role;
+public class UserInfo implements Serializable {
+    private int userId;//ID
+    private String userName;//用户账号
+    private String userPass;//密码
+    private String email;//邮箱
+    private String picUrl;//头像路径
+    private int role;//用户权限 1代表普通用户；2代表高级用户，3代表超级管理员
     private String roleStr;
-    private Date lastLoginTime;
+    private Date lastLoginTime;//最后登录时间
     private String lastLoginTimeStr;
-    private int loginStatus;
-    private int talkStatus;
+    private int loginStatus;//登录状态，0代表未登录，1代表已登录
+    private String loginStatusStr;
+    private int talkStatus;//发言状态，0代表未屏蔽发言（默认），1代表已屏蔽发言
     private String talkStatusStr;
-    private int isupdating;
-    private int updateStatus;
+    private int isupdating;//申请升级(0-未申请,1-已申请)
+    private String isupdatingStr;
+    private int updateStatus;//申请升级审核状态(0-未处理,1-已处理)
+    private String updateStatusStr;
 
     public String getTalkStatusStr() {
         if (talkStatus == 0){
@@ -33,6 +37,29 @@ public class UserInfo {
         this.talkStatusStr = talkStatusStr;
     }
 
+    public String getLoginStatusStr() {
+        return loginStatusStr;
+    }
+
+    public void setLoginStatusStr(String loginStatusStr) {
+        this.loginStatusStr = loginStatusStr;
+    }
+
+    public String getIsupdatingStr() {
+        return isupdatingStr;
+    }
+
+    public void setIsupdatingStr(String isupdatingStr) {
+        this.isupdatingStr = isupdatingStr;
+    }
+
+    public String getUpdateStatusStr() {
+        return updateStatusStr;
+    }
+
+    public void setUpdateStatusStr(String updateStatusStr) {
+        this.updateStatusStr = updateStatusStr;
+    }
 
     public String getRoleStr() {
         if (role == 1){
